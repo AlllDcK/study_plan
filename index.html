@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Семестр · осень 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F6F8;
+  --card:#FFFFFF;
+  --grid:#E4EAF1;
+  --line:#D6DEE9;
+  --ink:#16203C;
+  --ink-soft:#5C6A88;
+  --ink-faint:#95A2BB;
+  --rule:#B8433A;
+  --done:#2C7A5B;
+  --sans:'IBM Plex Sans',-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  --serif:'IBM Plex Serif',Georgia,'Times New Roman',serif;
+  --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);
+  background-image:
+    repeating-linear-gradient(to bottom,var(--grid) 0 1px,transparent 1px 28px),
+    repeating-linear-gradient(to right,var(--grid) 0 1px,transparent 1px 28px);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.sheet{
+  max-width:860px;
+  margin:0 auto;
+  padding:0 20px 80px 34px;
+  position:relative;
+}
+.sheet::before{
+  content:"";position:absolute;left:14px;top:0;bottom:0;width:2px;
+  background:var(--rule);opacity:.85;
+}
+@media(min-width:720px){
+  .sheet{padding:0 40px 96px 72px}
+  .sheet::before{left:44px}
+}
+a{color:inherit}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--rule);outline-offset:2px}
+
+/* ── шапка ───────────────────────────── */
+header{padding:34px 0 6px}
+.brand{
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;
+  color:var(--ink-soft);display:flex;gap:14px;flex-wrap:wrap;align-items:baseline;
+}
+.brand b{font-weight:500;color:var(--ink)}
+.hero{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap;margin:14px 0 4px}
+.wknum{
+  font-family:var(--serif);font-weight:600;font-size:66px;line-height:.86;
+  letter-spacing:-.02em;
+}
+.wkmeta{padding-bottom:6px}
+.wkdates{font-family:var(--mono);font-size:15px;color:var(--ink)}
+.wkcount{font-family:var(--mono);font-size:13px;color:var(--ink-soft);margin-top:2px}
+
+/* полоса семестра: 13 недель */
+.strip{display:flex;gap:3px;margin:18px 0 4px;align-items:flex-end}
+.seg{
+  flex:1;height:30px;border:1px solid var(--line);background:var(--card);
+  padding:0;position:relative;border-radius:1px;overflow:hidden;
+  transition:border-color .12s;
+}
+.seg span{position:absolute;left:0;right:0;bottom:0;background:var(--ink);opacity:.78;transition:height .2s}
+.seg em{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-style:normal;font-size:11px;color:var(--ink-soft);
+  mix-blend-mode:multiply;
+}
+.seg:hover{border-color:var(--ink-faint)}
+.seg.past span{opacity:.3}
+.seg.cur{border-color:var(--rule);border-width:2px}
+.seg.cur em{color:var(--rule);font-weight:500}
+.striplbl{
+  display:flex;justify-content:space-between;font-family:var(--mono);
+  font-size:11px;color:var(--ink-faint);margin-bottom:22px;
+}
+
+.nav{display:flex;gap:8px;margin:16px 0 0}
+.nav button{
+  background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:5px 12px;font-family:var(--mono);font-size:13px;color:var(--ink-soft);
+}
+.nav button:hover:not(:disabled){border-color:var(--ink-faint);color:var(--ink)}
+.nav button:disabled{opacity:.35;cursor:default}
+
+.tabs{display:flex;gap:0;margin:26px 0 20px;border-bottom:1px solid var(--line)}
+.tab{
+  background:none;border:0;border-bottom:2px solid transparent;
+  padding:8px 16px 9px;color:var(--ink-soft);font-weight:500;margin-bottom:-1px;
+}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--rule)}
+
+/* ── контрольная точка ───────────────── */
+.flag{
+  border-left:3px solid var(--rule);background:var(--card);
+  padding:10px 14px;margin:0 0 24px;font-size:14.5px;
+}
+.flag b{font-weight:600}
+
+/* ── цели ────────────────────────────── */
+.goal{margin:0 0 30px}
+.goal h2{
+  display:flex;align-items:baseline;gap:10px;margin:0 0 10px;
+  font-family:var(--serif);font-size:19px;font-weight:600;letter-spacing:-.01em;
+}
+.goal h2 i{
+  font-style:normal;font-family:var(--mono);font-size:13px;color:var(--rule);
+  border:1px solid var(--rule);border-radius:2px;width:22px;height:22px;
+  display:inline-flex;align-items:center;justify-content:center;flex:none;
+}
+.goal h2 small{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);font-weight:400}
+ul.tasks{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+ul.tasks li{border-bottom:1px solid var(--line)}
+ul.tasks label{
+  display:flex;gap:12px;align-items:flex-start;padding:11px 6px 11px 2px;
+  cursor:pointer;background:var(--card);
+}
+ul.tasks label:hover{background:#FBFCFD}
+ul.tasks input{
+  appearance:none;width:17px;height:17px;flex:none;margin-top:3px;
+  border:1.5px solid var(--ink-faint);border-radius:2px;background:#fff;position:relative;
+}
+ul.tasks input:checked{border-color:var(--done);background:var(--done)}
+ul.tasks input:checked::after{
+  content:"";position:absolute;left:5px;top:1px;width:4px;height:9px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg);
+}
+ul.tasks input:checked+span{color:var(--ink-faint);text-decoration:line-through;text-decoration-thickness:1px}
+ul.tasks span{font-size:15px;line-height:1.45}
+
+.seg.debt::after{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--rule)}
+.debtline{font-family:var(--mono);font-size:12.5px;color:var(--rule);margin-top:3px}
+.notes{margin:30px 0 0;border-top:1px solid var(--line);padding-top:14px}
+.notes label{display:block;font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);margin-bottom:6px}
+.notes textarea{
+  width:100%;min-height:78px;resize:vertical;font-family:var(--sans);font-size:14.5px;line-height:1.5;
+  padding:10px 12px;border:1px solid var(--line);border-radius:2px;background:var(--card);color:var(--ink);
+}
+.notes textarea:focus{outline:none;border-color:var(--ink-faint)}
+.titem.fix{border-left:3px solid var(--rule);padding-left:9px}
+
+/* ── недельный график ────────────────── */
+.day{border-top:1px solid var(--line);background:var(--card);padding:12px 12px 13px;display:flex;gap:16px;align-items:flex-start}
+.day:last-of-type{border-bottom:1px solid var(--line)}
+.day.today{border-left:3px solid var(--rule);padding-left:9px}
+.dname{flex:0 0 118px}
+.dname b{font-weight:600;font-size:15px;display:block}
+.dname span{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint)}
+.day.today .dname span{color:var(--rule)}
+.blocks{flex:1;display:flex;flex-direction:column;gap:7px;min-width:0}
+.block{display:flex;gap:10px;align-items:baseline}
+.badge{
+  font-family:var(--mono);font-size:11px;flex:none;width:20px;height:20px;border-radius:2px;
+  display:inline-flex;align-items:center;justify-content:center;
+  border:1px solid var(--ink-faint);color:var(--ink-soft);position:relative;top:3px;
+}
+.badge.none{border-style:dashed;color:var(--ink-faint)}
+.btext{flex:1;font-size:14.5px;min-width:0}
+.bh{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);flex:none}
+.bookrow{display:flex;gap:14px;align-items:flex-start;background:var(--card);border-bottom:1px solid var(--line);padding:11px 12px}
+.bshort{flex:0 0 108px;font-family:var(--mono);font-size:12px;color:var(--rule);padding-top:2px}
+.bfull{flex:1;font-size:14.5px;line-height:1.45;min-width:0}
+.bnote{display:block;font-size:13px;color:var(--ink-soft);margin-top:3px}
+@media(max-width:560px){.bookrow{flex-direction:column;gap:4px}.bshort{flex:none}}
+.phases{display:flex;gap:6px;margin:0 0 18px;flex-wrap:wrap}
+.phase{
+  background:var(--card);border:1px solid var(--line);border-radius:2px;padding:6px 12px;
+  font-family:var(--mono);font-size:12px;color:var(--ink-soft);
+}
+.phase:hover{border-color:var(--ink-faint);color:var(--ink)}
+.phase.on{border-color:var(--rule);color:var(--ink);font-weight:500}
+.loadnote{margin:22px 0 0;font-size:14px;color:var(--ink-soft);border-left:2px solid var(--line);padding-left:12px}
+.hours{margin:20px 0 0;border-top:1px solid var(--line)}
+.hrow{display:flex;justify-content:space-between;gap:12px;padding:7px 12px;border-bottom:1px solid var(--line);background:var(--card);font-size:14px}
+.hrow b{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ink-soft)}
+.hrow.sum{background:none;border-bottom:0;font-weight:600}
+.hrow.sum b{color:var(--ink)}
+
+/* ── тесты ───────────────────────────── */
+.tlist{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+.titem{
+  display:flex;justify-content:space-between;align-items:center;gap:14px;
+  background:var(--card);border-bottom:1px solid var(--line);
+  padding:13px 12px;width:100%;text-align:left;border-left:0;border-right:0;border-top:0;
+}
+.titem:hover{background:#FBFCFD}
+.titem:disabled{opacity:.45;cursor:default;background:var(--card)}
+.tname{font-weight:500;font-size:15px}
+.tsub{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);margin-top:2px}
+.tscore{font-family:var(--mono);font-size:13px;color:var(--ink-soft);flex:none}
+.tscore.ok{color:var(--done)}
+
+.paper{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:20px 18px}
+.qhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:4px}
+.qhead h2{font-family:var(--serif);font-size:21px;margin:0;font-weight:600}
+.back{background:none;border:0;font-family:var(--mono);font-size:13px;color:var(--ink-soft);padding:0}
+.back:hover{color:var(--rule)}
+.qintro{font-size:13.5px;color:var(--ink-soft);margin:0 0 20px;font-family:var(--mono)}
+
+.q{border-top:1px solid var(--line);padding:18px 0 4px}
+.q:first-of-type{border-top:0;padding-top:4px}
+.qtext{display:flex;gap:10px;margin:0 0 12px;font-size:15.5px;line-height:1.5}
+.qtext i{font-style:normal;font-family:var(--mono);font-size:13px;color:var(--ink-faint);flex:none;padding-top:2px}
+.opts{display:flex;flex-direction:column;gap:2px;margin-left:26px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:6px 8px;border-radius:2px;cursor:pointer}
+.opt:hover{background:#F7F9FB}
+.opt input{margin-top:4px;accent-color:var(--ink);flex:none}
+.opt span{font-size:15px}
+.opt.right{background:#EDF6F1}
+.opt.wrong{background:#FBEEEC}
+.fill{margin-left:26px}
+.fill input{
+  font-family:var(--mono);font-size:15px;padding:7px 10px;border:1px solid var(--line);
+  border-radius:2px;width:100%;max-width:340px;background:#FCFDFE;color:var(--ink);
+}
+.fill input:focus{border-color:var(--ink-faint);outline:none;background:#fff}
+.hintmulti{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);margin:-6px 0 8px 26px}
+.verdict{margin:10px 0 0 26px;font-size:14px;border-left:2px solid var(--line);padding:2px 0 2px 12px}
+.verdict b{font-weight:600}
+.verdict.ok b{color:var(--done)}
+.verdict.no b{color:var(--rule)}
+.verdict.ok{border-left-color:var(--done)}
+.verdict.no{border-left-color:var(--rule)}
+.verdict p{margin:3px 0 0;color:var(--ink-soft)}
+
+.actions{display:flex;gap:10px;align-items:center;margin-top:22px;padding-top:18px;border-top:1px solid var(--line);flex-wrap:wrap}
+.primary{
+  background:var(--ink);color:#fff;border:1px solid var(--ink);border-radius:2px;
+  padding:9px 20px;font-weight:500;
+}
+.primary:hover{background:#0E1730}
+.ghost{background:none;border:1px solid var(--line);border-radius:2px;padding:9px 16px;color:var(--ink-soft)}
+.ghost:hover{border-color:var(--ink-faint);color:var(--ink)}
+.result{font-family:var(--mono);font-size:14px}
+
+.ftools{display:flex;gap:16px;flex-wrap:wrap}
+.syncbox{margin-top:18px;border:1px solid var(--line);background:var(--card);border-radius:2px;padding:16px}
+.syncbox p{margin:0 0 10px;font-size:14px}
+.syncbox textarea{
+  width:100%;min-height:90px;resize:vertical;font-family:var(--mono);font-size:11.5px;line-height:1.45;
+  padding:9px 10px;border:1px solid var(--line);border-radius:2px;background:#FCFDFE;color:var(--ink-soft);
+}
+.syncrow{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;align-items:center}
+.synchint{margin:12px 0 0!important;font-size:12.5px;color:var(--ink-faint)}
+.warnmem{border-left:3px solid var(--rule);background:var(--card);padding:9px 13px;margin:0 0 18px;font-size:13.5px}
+footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:12px;color:var(--ink-faint)}
+footer button{background:none;border:0;color:var(--ink-faint);text-decoration:underline;padding:0;font-family:var(--mono);font-size:12px}
+footer button:hover{color:var(--rule)}
+.empty{color:var(--ink-faint);font-size:15px;padding:20px 0}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media(max-width:560px){
+  .wknum{font-size:52px}
+  .seg em{font-size:10px}
+  .strip{gap:2px}
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header>
+    <div class="brand"><b>Учебный семестр</b><span>14 сентября — 13 декабря 2026</span></div>
+
+    <div class="strip" id="strip"></div>
+    <div class="striplbl"><span>сентябрь</span><span>октябрь</span><span>ноябрь</span><span>декабрь</span></div>
+
+    <div class="hero">
+      <div class="wknum" id="wknum">1</div>
+      <div class="wkmeta">
+        <div class="wkdates" id="wkdates"></div>
+        <div class="wkcount" id="wkcount"></div>
+        <div class="debtline" id="wkdebt"></div>
+      </div>
+    </div>
+    <div class="nav">
+      <button id="prev">← предыдущая</button>
+      <button id="next">следующая →</button>
+    </div>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-goals" aria-selected="true">Цели недели</button>
+    <button class="tab" role="tab" id="tab-plan" aria-selected="false">График недели</button>
+    <button class="tab" role="tab" id="tab-tests" aria-selected="false">Тесты</button>
+    <button class="tab" role="tab" id="tab-books" aria-selected="false">Книги</button>
+  </div>
+
+  <div class="warnmem" id="warnmem" hidden></div>
+  <main id="view"></main>
+
+  <footer>
+    <span id="total">—</span>
+    <span class="ftools">
+      <button id="sync">Перенести на другое устройство</button>
+      <button id="reset">Сбросить весь прогресс</button>
+    </span>
+  </footer>
+  <div class="syncbox" id="syncbox" hidden>
+    <p id="syncnote"></p>
+    <textarea id="synctext" spellcheck="false"></textarea>
+    <div class="syncrow">
+      <button class="primary" id="syncapply">Загрузить из поля</button>
+      <button class="ghost" id="synccopy">Скопировать</button>
+      <button class="ghost" id="syncclose">Закрыть</button>
+    </div>
+    <p class="synchint">Скопируйте строку на одном устройстве, вставьте в это поле на другом и нажмите «Загрузить из поля». Прогресс хранится в каждом браузере отдельно, поэтому переносить нужно вручную.</p>
+  </div>
+</div>
+
+<script>
+/* ══════════ данные ══════════ */
+
+const GOALS = [
+  {id:'py',  num:3, title:'Python · FastAPI с нуля',              note:'приоритет 1'},
+  {id:'imad',num:3, title:'ИМАД · университетский курс',          note:'приоритет 1'},
+  {id:'java',num:2, title:'Java · Android Studio',                note:'приоритет 2'},
+  {id:'umf', num:1, title:'Уравнения математической физики',      note:'приоритет 3'},
+  {id:'vkr', num:4, title:'ВКР · выпуклые множества',             note:'приоритет 4'},
+  {id:'opt', num:4, title:'Методы оптимизации · четыре книги',     note:'приоритет 4'},
+  {id:'crm', num:5, title:'Daily-CRM · Nuxt',                     note:'приоритет 5'},
+  {id:'sp',  num:6, title:'Случайные процессы · самостоятельно', note:'опора для цели 6'},
+  {id:'pto', num:6, title:'Predict-then-Optimize · Байкал',       note:'приоритет 6'}
+];
+
+const WEEKS = [
+{n:1, dates:'14 — 20 сентября', t:{
+  py:['Виртуальное окружение, установка fastapi и uvicorn','Аннотации типов в Python: зачем они FastAPI','async / await: что это и когда действительно нужно','Первое приложение, запуск uvicorn, разбор /docs и /redoc'],
+  java:['Установить JDK и IntelliJ IDEA, первая программа','Примитивные типы, переменные, приведение типов','Условия, циклы, ввод-вывод — 20 простых задач'],
+  vkr:['Собрать 12–15 источников по теме','Аннотация на 3–5 строк по каждому источнику'],
+  crm:['Пройти проект насквозь как пользователь','Выписать все хвосты в GitHub Issues с метками'],
+  pto:[]}},
+
+{n:2, dates:'21 — 27 сентября', flag:'Контрольная точка 27 сентября: первый срез по всем целям.', t:{
+  py:['Path-параметры и их типизация','Query-параметры, значения по умолчанию, Optional','Enum как тип параметра','Порядок маршрутов: почему /users/me должен идти раньше /users/{id}','Собрать API-справочник на 6 эндпоинтов без базы'],
+  java:['Массивы и строки','Методы, передача аргументов, рекурсия','Андерсон, гл. 5: алгоритмы и рекурсия, упражнения с ответами','30 задач на Stepik или 15 задач с acmp.ru'],
+  vkr:['Сузить тему: чем ваша постановка отличается от найденных работ','Выписать, какие результаты обзора можно переиспользовать','Васильев, ч. II гл. 10 §2 «Общие условия аппроксимации» — образец того, как формулируют сходимость аппроксимаций','Тыртышников 20.4–20.8: угловые точки, полиэдры и их грани, конечно порождённый конус — язык, на котором формулируется ваша тема'],
+  crm:['Закрыть три самых критичных бага'],
+  pto:[]}},
+
+{n:3, dates:'28 сентября — 4 октября', flag:'4 октября: постановка задачи ВКР согласована с научруком письменно.', t:{
+  py:['Pydantic v2: BaseModel, типы полей','Вложенные модели, тело запроса','response_model: что уходит наружу','Field и field_validator'],
+  java:['Классы, конструкторы, инкапсуляция','this, static, области видимости','Первая программа из нескольких классов'],
+  vkr:['Формальная постановка задачи, одна страница','Согласовать постановку с научруком письменно'],
+  crm:['Разбор оставшихся багов по приоритету'],
+  pto:['Прочитать Elmachtoub & Grigas — Smart Predict-then-Optimize','Понять, почему малая ошибка прогноза ≠ хорошее решение']}},
+
+{n:4, dates:'5 — 11 октября', t:{
+  py:['APIRouter и разбиение проекта на модули','Настройки через pydantic-settings','HTTPException и осмысленные статус-коды','Единый обработчик исключений'],
+  java:['Наследование, полиморфизм','Абстрактные классы и интерфейсы','Коллекции: List, Set, Map — какая когда','Контест: Codeforces Div. 3 только на Java, цель 3+ задачи'],
+  vkr:['Определить набор тестовых множеств для экспериментов','Выбрать метрику качества аппроксимации'],
+  crm:['Доработка фронтенда по списку issues'],
+  pto:[]}},
+
+{n:5, dates:'12 — 18 октября', flag:'Контрольная точка 18 октября: языковой блок Java закрыт, баги Daily-CRM закрыты.', t:{
+  py:['Depends: зависимости как способ убрать дублирование','Зависимости с yield — открыть и гарантированно закрыть ресурс','Вложенные зависимости, кэширование в пределах запроса','Зависимости уровня роутера и приложения'],
+  java:['Дженерики','Исключения: checked и unchecked, try-with-resources','equals и hashCode, Comparator','Stream API, лямбды, Optional','Итог блока: консольный парсер CSV с тестами на JUnit 5'],
+  vkr:['Полиэдральная аппроксимация выпуклых множеств','Расстояние Хаусдорфа и оценки точности'],
+  crm:['Все баги закрыты, ни одного открытого issue с меткой bug'],
+  pto:['Сформулировать задачу оптимизации: что распределяем, ограничения, целевая функция','Афанасьев, гл. 1, 5, 12: план производства, транспортная задача, управление запасами — готовые постановки','Давыдов §2.11–2.12: распределение ресурсов на транспортных сетях, в том числе при неопределённых факторах','Андерсон, гл. 16: сети и потоки — язык, на котором это записывается']}},
+
+{n:6, dates:'19 — 25 октября', t:{
+  py:['SQLAlchemy 2.0: движок, сессия, модели','Стиль select(), а не session.query()','CRUD на SQLite, четыре операции своими руками'],
+  java:['Android Studio, структура проекта, Gradle','Activity и её жизненный цикл','Layouts, ConstraintLayout'],
+  vkr:['Прототип на Python: аппроксимация шара и эллипсоида','Размерности 2, 3, 5','Галанин, гл. 12: критерий Делоне и построение триангуляции по набору точек','Тыртышников 15.13 и 16.13: наилучшие приближения — откуда берётся критерий качества'],
+  crm:['Nuxt: состояния загрузки и ошибок на основных экранах'],
+  pto:['Проверить наличие данных под optimize-часть: вместимости, расстояния, стоимости']}},
+
+{n:7, dates:'26 октября — 1 ноября', flag:'1 ноября — точка решения по теме ВКР. Позже менять тему нельзя.', t:{
+  py:['Alembic: инициализация и первая миграция','autogenerate: что он видит и чего не видит','upgrade и downgrade, ручная правка миграции','Проверка: 4 миграции подряд, откат без потери данных'],
+  java:['RecyclerView и адаптер','Intent и переход между экранами','Первое приложение-список с экраном деталей'],
+  vkr:['Решение по теме ВКР принято и зафиксировано','Прогнать прототип на множествах большей размерности'],
+  crm:['Актуализировать OpenAPI-схему'],
+  pto:['Свести результаты проверки данных в одну страницу выводов']}},
+
+{n:8, dates:'2 — 8 ноября', t:{
+  py:['async_engine и AsyncSession','Асинхронный драйвер: asyncpg или aiosqlite','Связи один-ко-многим','Пагинация и фильтрация','selectinload против проблемы N+1'],
+  java:['Fragment и Navigation Component','ViewModel и LiveData','Состояние переживает поворот экрана'],
+  vkr:['Численный эксперимент: метрика качества','Сравнение с базовым методом, таблицы и графики','Тыртышников: нормы и обусловленность — оценить устойчивость эксперимента к входным данным'],
+  crm:['Nuxt-фронтенд доведён до рабочего состояния'],
+  pto:[]}},
+
+{n:9, dates:'9 — 15 ноября', flag:'Контрольная точка 15 ноября.', t:{
+  py:['OAuth2 password flow','Хеширование паролей, почему не шифрование','Выпуск и проверка JWT','Защита маршрутов, роли пользователей'],
+  java:['Room: сущности, DAO, база','Сохранение списка между запусками приложения'],
+  vkr:['Начать черновик главы 1'],
+  crm:['CORS и версионирование /api/v1'],
+  pto:[]}},
+
+{n:10, dates:'16 — 22 ноября', t:{
+  py:['pytest и первые тесты API','httpx.AsyncClient вместо TestClient','Отдельная тестовая база, фикстуры, откат между тестами','Покрытие: добиться 70 % и тестов, не зависящих от порядка'],
+  java:['Retrofit и OkHttp','Асинхронные запросы, состояния loading / error / empty'],
+  vkr:['Черновик главы 1 готов, 15–20 страниц'],
+  crm:['Единый формат ошибок API'],
+  pto:[]}},
+
+{n:11, dates:'23 — 29 ноября', flag:'Контрольная точка 29 ноября: мобильный клиент ходит в реальный бэкенд.', t:{
+  py:['Фоновые задачи и загрузка файлов','CORS и middleware','Логирование с request-id'],
+  java:['Приложение ходит в бэкенд Daily-CRM','Авторизация по JWT в мобильном клиенте'],
+  vkr:['Начать черновик главы 2: метод и алгоритм'],
+  crm:['API готов к мобильному клиенту, проверено с устройства'],
+  pto:['Прототип: прогноз SARIMA → задача ЛП → посчитать regret','Айвазян, т. 2, 3.5.2 сезонная компонента и 3.6.1 прогнозирование на базе АРПСС — предсказательная часть по параграфам','Волков, Зуев, Цветкова, «Случайные процессы» (том XVIII) — для стохастической части постановки','Кремер, гл. 15–16: массовое обслуживание и управление запасами — нагрузка на тропы и места размещения','Давыдов §4.5: задача управления экологической системой']}},
+
+{n:12, dates:'30 ноября — 6 декабря', t:{
+  py:['Dockerfile для приложения','docker-compose с Postgres','Переменные окружения и .env, healthcheck'],
+  java:['Офлайн-кэш в Room','Сборка APK'],
+  vkr:['Черновик главы 2, 12–15 страниц'],
+  crm:['Бэкап базы настроен'],
+  pto:['Оформить результат в текст на 3–4 страницы']}},
+
+{n:13, dates:'7 — 13 декабря', flag:'Финиш. Всё университетское закрыто.', t:{
+  py:['CI на GitHub Actions: линтер → тесты → сборка образа','README с описанием архитектуры','Модель из ИМАД отдаётся через API','Проект по ИМАД сдан'],
+  java:['Итоговое приложение сдано: список, детали, создание, офлайн'],
+  vkr:['Отчёт научруку: 50–60 % текста','Эксперимент воспроизводится одной командой'],
+  crm:['README и инструкция развёртывания, пайплайн зелёный'],
+  pto:['Тезисы на студенческую конференцию']}}
+];
+
+/* УМФ: Мартинсон и Малов — основной текст, Власова — приближённые методы, Галанин — численная часть */
+const UMF = {
+ 1:['Мартинсон, введение В1: задачи математической физики','Власова, гл. 1–2: перенос физических субстанций, законы сохранения, дивергентная форма','Мартинсон 1.1: уравнение колебаний струны'],
+ 2:['Мартинсон, введение В2: классификация ДУЧП второго порядка, приведение к каноническому виду','Контрольная себе: 20 задач на канонический вид за 90 минут, норма 18 из 20'],
+ 3:['Мартинсон 1.2: задача Коши для гиперболического уравнения, формула Даламбера','Мартинсон 1.3: обобщённые решения'],
+ 4:['Мартинсон 1.4: колебания полуограниченной струны, метод отражений','Мартинсон, приложение 2: задача Штурма — Лиувилля (в основном тексте её нет)','Контрольная: 15 задач, из них 5 на полупрямую'],
+ 5:['Мартинсон 1.5: краевые задачи для гиперболического уравнения','Мартинсон 1.6: краевые задачи для неоднородного уравнения','Вопросы и задачи к главе 1'],
+ 6:['Мартинсон 2.1: одномерный нестационарный процесс распространения теплоты','Мартинсон 2.2: краевые задачи для уравнения теплопроводности','Контрольная: 12 задач на стержень'],
+ 7:['Мартинсон 2.3: свойства решений краевых задач, принцип максимума','Мартинсон 2.4: неоднородное уравнение теплопроводности'],
+ 8:['Мартинсон 2.5: задача Коши для уравнения теплопроводности, фундаментальное решение','«Интегральные преобразования и операционное исчисление» (том XI) — преобразование Фурье для задачи Коши','Вопросы и задачи к главе 2','Галанин, гл. 8: схема с весами, её аппроксимация и устойчивость'],
+ 9:['Мартинсон 3.1: задачи, приводящие к уравнениям эллиптического типа','Мартинсон 3.2: фундаментальные решения уравнения Лапласа','Мартинсон 3.3: интегральная формула Грина'],
+ 10:['Мартинсон 3.4: свойства объёмного потенциала','Мартинсон 3.5: свойства гармонических функций','Контрольная: 12 задач'],
+ 11:['Мартинсон 3.6 краевые задачи для уравнения Лапласа, 3.7 метод функций Грина','Мартинсон 3.8: решение краевых задач методом разделения переменных','Галанин, гл. 10: разностная схема для уравнения Пуассона'],
+ 12:['Мартинсон 6.2–6.3: колебания прямоугольной и круглой мембраны — здесь появляются функции Бесселя','Мартинсон, приложение 1: дельта-функция','Власова 6.1 общая схема построения приближённых методов, 6.2 погрешности приближённых методов','Треногин, «Функциональный анализ» — справочно к главам 4–5 Власовой, покупать ничего не нужно'],
+ 13:['Власова 6.5 ортогональные проекции, 6.6 коллокации в подобластях и точках','Власова 6.7 наименьшие квадраты, 6.8 Бубнов — Галёркин и Ритц, 6.10 выбор базисных функций','Власова гл. 7 основы метода конечных разностей, 8.3 нестационарная задача теплопроводности','Численное решение уравнения теплопроводности на Python, сравнение с рядом Фурье','Зачёт']
+};
+WEEKS.forEach(w=>{ if(UMF[w.n]) w.t.umf = UMF[w.n]; });
+
+/* ИМАД: шесть разделов курса, разложенные по неделям */
+const IMAD = {
+ 1:['Раздел 1. Процесс KDD и методология CRISP-DM','Типы данных и шкалы измерения','Настроить окружение: pandas, numpy, matplotlib, scikit-learn','Грас, гл. 2–5: Python, визуализация, линейная алгебра, статистика — всё пишется руками'],
+ 2:['Раздел 1. Предобработка: пропуски, выбросы, дубликаты','Нормализация и стандартизация, почему их считают по обучающей выборке','Разведочный анализ на своём наборе данных'],
+ 3:['Раздел 2. Описательные статистики, распределения','Проверка гипотез','Айвазян, т. 1, гл. 6–8: выборочные характеристики, оценивание параметров, проверка гипотез — основной источник по разделу 2','Грас, гл. 6–7: вероятность, гипотезы, доверительные интервалы, взлом p-значения','Андерсон, гл. 8: комбинаторные принципы, перестановки и сочетания — упражнения с ответами'],
+ 4:['Раздел 2. Корреляция и её ловушки, дисперсионный анализ','Регрессия как метод анализа данных: сверить с эконометрическими формулировками','Айвазян, т. 1, гл. 10–11: исследование зависимостей, корреляционный анализ количественных, порядковых и категоризованных признаков','Айвазян, т. 2, 2.4: мультиколлинеарность и отбор существенных объясняющих переменных — это и есть отбор признаков'],
+ 5:['Раздел 2. Метод главных компонент','Айвазян, т. 1, 13.2: метод главных компонент и их оптимальные свойства','Грас, гл. 10: работа с данными, шкалирование, снижение размерности','Тыртышников 17.9 и 19.14: сингулярное разложение и малоранговые приближения — почему PCA работает','Первый сабмит на Kaggle: полный цикл от разведки до отправки'],
+ 6:['Раздел 3. OLTP против OLAP, зачем отдельное хранилище','Схемы «звезда» и «снежинка», факты и измерения'],
+ 7:['Раздел 3. Операции над кубом: срез, детализация, свёртка','ETL и витрины данных','Грас, гл. 24: SQL от CREATE TABLE до JOIN, подзапросов и индексов, плюс NoSQL','Практика: звезда на данных турпотока, 5 аналитических запросов','Тема курсовой выбрана и согласована'],
+ 8:['Раздел 4. Классификация: деревья решений, kNN, наивный Байес','Метрики: accuracy, precision, recall, F1, ROC-AUC','Почему accuracy лжёт на несбалансированных классах','Айвазян, т. 1, 12.2: дискриминантный анализ и байесовские процедуры классификации','Грас, гл. 11–13 и 16–17: переподгонка, смещение против дисперсии, kNN, наивный Байес, логистическая регрессия, деревья и случайные леса','Айвазян, т. 2, 2.13: логит- и пробит-модели — классификация средствами регрессии','Хурбанс, гл. 8: рабочий процесс машинного обучения и классификация деревьями решений'],
+ 9:['Раздел 4. Кластеризация: k-means, иерархическая, DBSCAN','Айвазян, т. 1, 12.4: функционалы качества разбиения — кластеризация как экстремальная задача','Грас, гл. 20: k-средних и восходящая иерархическая кластеризация с нуля','Ассоциативные правила: поддержка, достоверность, Apriori','Переобучение и кросс-валидация','Курсовая: данные собраны, разведочный анализ проведён'],
+ 10:['Раздел 5. Персептрон, обратное распространение, функции активации','Траск — считать градиенты руками, прежде чем брать фреймворк','Грас, гл. 18–19: персептрон, обратное распространение, слой отсева, MNIST','Регуляризация: dropout, L2, ранняя остановка'],
+ 11:['Раздел 5. Свёрточные и рекуррентные сети, LSTM','Обучить свою сеть, построить график обучения','Курсовая: модель обучена, качество измерено на отложенной выборке'],
+ 12:['Раздел 6. Трансформер и механизм внимания, токенизация','Few-shot, chain-of-thought, структурированный вывод','Эмбеддинги и RAG','Грас, гл. 21: N-граммные модели, тематическое моделирование, векторы слов, рекуррентные сети','Ограничения LLM: галлюцинации, оценка качества','Курсовая: текст готов, оформление по требованиям кафедры'],
+ 13:['Курсовая по ИМАД сдана','Модель из курсовой отдаётся через FastAPI-сервис']
+};
+WEEKS.forEach(w=>{ if(IMAD[w.n]) w.t.imad = IMAD[w.n]; });
+
+/* Методы оптимизации: Васильев — теория, Пантелеев — счёт руками, Колбин — специальные классы */
+const OPT = {
+ 1:['Васильев, «Рекомендации по использованию книги» (с. 996) — автор сам задаёт маршруты чтения','Васильев, гл. 1 §6: метод ломаных — кусочно-линейная миноранта по вычисленным точкам','Васильев, гл. 1 §7: методы покрытий'],
+ 2:['Васильев, гл. 1 §8: выпуклые функции одной переменной','Васильев, гл. 1 §9 метод касательных, §10 метод Стронгина','Пантелеев §5.1: все семь методов одномерной минимизации, каждый просчитать руками'],
+ 3:['Васильев, гл. 4 §1 выпуклые множества, §2 выпуклые функции','Алексеев, §3 «Элементы выпуклого анализа» + задачи к нему','Тыртышников 5.6–5.8: гиперплоскости и полупространства, аффинные и выпуклые комбинации, теоремы о выпуклых множествах'],
+ 4:['Васильев, гл. 4 §4: проекция точки на множество','Васильев, гл. 4 §5: отделимость выпуклых множеств','Васильев, гл. 4 §6: субградиент и субдифференциал','Тыртышников 16.13–16.14: наилучшие приближения на выпуклых множествах, разделяющие и опорные гиперплоскости'],
+ 5:['Васильев, гл. 2 §1–§5: теорема Вейерштрасса, условия экстремума первого и второго порядка','Пантелеев §2: задачи на безусловный экстремум','Васильев, гл. 4 §3 и §7: сильно и равномерно выпуклые функции'],
+ 6:['Пантелеев §5.2 метод конфигураций (он же Хука — Дживса)','Пантелеев §5.3 метод деформируемого многогранника (Нелдера — Мида), §5.4 Розенброк','Пантелеев §5.5 сопряжённые направления, §5.6 случайный поиск обзорно'],
+ 7:['Пантелеев §6: градиентный спуск с постоянным шагом, наискорейший, покоординатный, Гаусс — Зейдель','Пантелеев §6.5 Флетчер — Ривс, §6.6 Дэвидон — Флетчер — Пауэлл','Васильев, гл. 5 §1 градиентный метод, §9 сопряжённые направления'],
+ 8:['Пантелеев §7: Ньютон, Ньютон — Рафсон, Марквардт','Васильев, гл. 5 §10 метод Ньютона','Васильев, гл. 4 §8 обоснование правила множителей Лагранжа, §9 теорема Куна — Таккера и двойственная задача','Алексеев §2 гладкие задачи, §4 выпуклые задачи и двойственность'],
+ 9:['Тыртышников, гл. 20: линейные неравенства, угловые точки, полиэдры и их грани, конечно порождённый конус, лемма Фаркаша','Васильев, гл. 3 §2 угловые точки, §3 симплекс-метод с антициклином, §5 теоремы двойственности','Кремер, гл. 2–3 и 5: тот же материал элементарно и с упражнениями — мягкий вход','Пантелеев §11: симплекс-метод Данцига и двухфазный, 5 задач вручную'],
+ 10:['Кремер 11.3: приближённое решение задачи выпуклого программирования методом кусочно-линейной аппроксимации','Пантелеев §9: штрафы, барьеры, комбинированный метод, множители, точные штрафные функции','Пантелеев §10: метод проекции градиента, метод Зойтендейка','Васильев, гл. 5 §2 проекция градиента, §4 условный градиент, §16 и §18 штрафы и барьеры'],
+ 11:['Пантелеев §12.1 метод ветвей и границ, §12.2 метод Гомори','Васильев, гл. 5 §13: метод покрытия в многомерных задачах','Колбин, гл. 7 §28 и §31: дискретное программирование','Хурбанс, гл. 4–7: генетический алгоритм, муравьиный, рой частиц — стохастическая пара к детерминированным методам выше','Белоусов и Ткачев, гл. 5: теория графов — деревья, остовное дерево наименьшего веса, задача о путях'],
+ 12:['Колбин §1: декомпозиция Данцига — Вулфа, решение как комбинация опорных точек подзадач','Колбин §11: релаксация ограничений для выпуклого программирования — это отсекающие плоскости','Колбин §15 Бендерс, §37 двухэтапная задача Данцига — Маданского, §34 модель Катаока','Белоусов и Ткачев, 1.8 и 3.5: упорядоченные множества и решётки — язык главы 9 Колбина','Последние три — готовый каркас для Predict-then-Optimize'],
+ 13:['Васильев, ч. II гл. 10 §1–§2: аппроксимация экстремальных задач, общие условия аппроксимации','Свести конспект по четырём книгам: метод — условия применимости — сходимость','Отметить, что войдёт в теоретическую главу ВКР']
+};
+WEEKS.forEach(w=>{ if(OPT[w.n]) w.t.opt = OPT[w.n]; });
+
+/* Случайные процессы: Волков, Зуев, Цветкова. Порядок глав — не книжный,
+   а по полезности для цели 6: марковские процессы и очереди раньше спектра. */
+const SP = {
+ 1:['Гл. 1.1: случайная функция, случайный процесс, случайная последовательность','Гл. 1.2: математическое ожидание и ковариационная функция'],
+ 2:['Гл. 2.1 стационарные процессы, 2.2 нормальные','Гл. 2.3: процессы с независимыми приращениями'],
+ 3:['Гл. 2.4 винеровский процесс, 2.5 марковские, 2.6 пуассоновский','Вопросы и задачи к главе 2'],
+ 4:['Гл. 5.1: марковские процессы с дискретными состояниями','Гл. 5.2: цепи Маркова'],
+ 5:['Гл. 5.3: уравнения Колмогорова для вероятностей состояний','Гл. 5.4: процесс гибели — размножения','Андерсон, гл. 13: производящие функции — естественный аппарат для таких процессов'],
+ 6:['Гл. 6.1 процессы массового обслуживания, 6.2 простейший поток','Гл. 6.3: время ожидания и время обслуживания'],
+ 7:['Гл. 6.4–6.5: марковские модели обслуживания, системы с ожиданием','Гл. 6.6–6.7: стационарный режим — отсюда берутся оценки нагрузки на тропы'],
+ 8:['Гл. 4.1: стационарные процессы с дискретным спектром','Гл. 4.2: с непрерывным спектром'],
+ 9:['Гл. 4.3 белый шум, 4.4 прохождение через линейную систему','Сопоставить спектральный взгляд с ARIMA: это одно и то же с двух сторон'],
+ 10:['Гл. 3.1 СК-сходимость обзорно, 3.6 эргодические процессы','Эргодичность — условие, при котором один ряд заменяет ансамбль'],
+ 11:['Гл. 9.1–9.2: данные наблюдений, статистические моменты процесса','Гл. 9.3: постановка задачи оценивания параметров'],
+ 12:['Гл. 9.6 максимальное правдоподобие, 9.7 наименьшие квадраты для процессов'],
+ 13:['Гл. 10.5: фильтр Калмана','Связать с прогнозом турпотока: это адаптивная оценка состояния по шумным наблюдениям']
+};
+WEEKS.forEach(w=>{ if(SP[w.n]) w.t.sp = SP[w.n]; });
+
+/* Недельный график: две фазы семестра. Первая — набор материала, вторая — производство */
+const SCHEDULES = {
+ a:{from:1, to:7, title:'Недели 1–7 · набор материала',
+    note:'Теория набирается впрок: выпуклый анализ под ВКР, основные уравнения по УМФ, язык Java, случайные процессы под цель 6. По ВКР пока только обзор и постановка — писать нечего, пока не прочитано.',
+    days:[
+ {d:'Понедельник', tag:'лёгкий день', b:[
+   {g:'imad', t:'Теория текущего раздела курса', h:'2 ч'},
+   {g:'java', t:'Повторение синтаксиса, короткие задачи', h:'1 ч'},
+   {g:'sp',   t:'Волков: случайные процессы по главам', h:'1,5 ч'}]},
+ {d:'Вторник', tag:'тяжёлый день', b:[
+   {g:'py',  t:'FastAPI: сквозной проект недели', h:'4 ч'},
+   {g:'opt', t:'Теория: Васильев и Тыртышников', h:'3 ч'}]},
+ {d:'Среда', tag:'пары по УМФ', b:[
+   {g:'umf', t:'Разбор лекций, задачи по теме пары', h:'2,5 ч'}]},
+ {d:'Четверг', tag:'пары по Java', b:[
+   {g:'java', t:'Практика: задачи на язык, позже Android Studio', h:'3 ч'}]},
+ {d:'Пятница', tag:'пары по УМФ', b:[
+   {g:'umf', t:'Мартинсон и Малов; Власова — приближённые методы', h:'2,5 ч'}]},
+ {d:'Суббота', tag:'тяжёлый день', b:[
+   {g:'java', t:'Проект: код', h:'3,5 ч'},
+   {g:'opt',  t:'Задачи: Пантелеев и Алексеев, считать руками', h:'2 ч'},
+   {g:'vkr',  t:'Обзор литературы, постановка задачи', h:'1 ч'}]},
+ {d:'Воскресенье', tag:'тяжёлый день', b:[
+   {g:'imad', t:'Лабораторная и практика с данными', h:'2,5 ч'},
+   {g:'py',   t:'FastAPI: закрепить тему недели', h:'1,5 ч'},
+   {g:'crm',  t:'Daily-CRM', h:'1 ч'},
+   {g:'pto',  t:'Predict-then-Optimize', h:'1 ч'},
+   {g:null,   t:'Ревью недели: отметить сделанное, перенести хвосты', h:'0,5 ч'}]}
+ ]},
+ b:{from:8, to:13, title:'Недели 8–13 · производство',
+    note:'Часы уходят из оптимизации в ВКР и курсовую: к этому моменту теория прочитана, и всё решает то, что написано и посчитано. Java слегка сокращается — язык уже освоен, остаётся платформа. Случайные процессы тоже ужимаются: главы, нужные цели 6, к неделе 8 пройдены.',
+    days:[
+ {d:'Понедельник', tag:'лёгкий день', b:[
+   {g:'imad', t:'Курсовая: данные, модель, текст', h:'2 ч'},
+   {g:'java', t:'Повторение и разбор непонятного с пар', h:'1 ч'},
+   {g:'sp',   t:'Волков: спектральная теория, оценивание, Калман', h:'1 ч'}]},
+ {d:'Вторник', tag:'тяжёлый день', b:[
+   {g:'py',  t:'FastAPI: сквозной проект недели', h:'4 ч'},
+   {g:'opt', t:'Условная оптимизация, ЛП, Колбин', h:'2 ч'},
+   {g:'vkr', t:'Текст: писать по часу, а не рывками в конце', h:'1 ч'}]},
+ {d:'Среда', tag:'пары по УМФ', b:[
+   {g:'umf', t:'Разбор лекций, задачи по теме пары', h:'2,5 ч'}]},
+ {d:'Четверг', tag:'пары по Java', b:[
+   {g:'java', t:'Android Studio: экраны, Room, Retrofit', h:'3 ч'}]},
+ {d:'Пятница', tag:'пары по УМФ', b:[
+   {g:'umf', t:'Мартинсон и Малов; Власова — приближённые методы', h:'2,5 ч'}]},
+ {d:'Суббота', tag:'тяжёлый день', b:[
+   {g:'java', t:'Мобильное приложение: код', h:'3 ч'},
+   {g:'vkr',  t:'Численный эксперимент, главы 1 и 2', h:'4 ч'}]},
+ {d:'Воскресенье', tag:'тяжёлый день', b:[
+   {g:'imad', t:'Курсовая и лабораторные', h:'2,5 ч'},
+   {g:'py',   t:'FastAPI: закрепить тему недели', h:'1,5 ч'},
+   {g:'crm',  t:'Daily-CRM', h:'1 ч'},
+   {g:'pto',  t:'Predict-then-Optimize', h:'1 ч'},
+   {g:null,   t:'Ревью недели: отметить сделанное, перенести хвосты', h:'0,5 ч'}]}
+ ]}
+};
+
+/* Полные выходные данные: на торце книги автор пишется не всегда */
+const BOOKS = [
+ {g:'opt', short:'Васильев',    full:'Васильев Ф. П. «Методы оптимизации»', note:'В двух книгах. Теория, доказательства, часть II — аппроксимация экстремальных задач'},
+ {g:'opt', short:'Пантелеев',   full:'Пантелеев А. В., Летова Т. А. «Методы оптимизации в примерах и задачах»', note:'Вычислительный задачник: считать итерации руками'},
+ {g:'opt', short:'Алексеев',    full:'Алексеев В. М., Галеев Э. М., Тихомиров В. М. «Сборник задач по оптимизации»', note:'Теоретический задачник: принцип Лагранжа, выпуклый анализ'},
+ {g:'opt', short:'Колбин',      full:'Колбин В. В. «Специальные методы оптимизации»', note:'Декомпозиция, дискретное программирование, задачи с неполной информацией'},
+ {g:'opt', short:'Тыртышников',full:'Тыртышников Е. Е. «Матричный анализ и основы алгебры»', note:'Гл. 20 — геометрия полиэдров, гл. 16–19 — приближения, SVD, обусловленность'},
+ {g:'opt', short:'Белоусов',    full:'Белоусов А. И., Ткачев С. Б. «Дискретная математика» (том XIX серии МГТУ им. Баумана)', note:'Гл. 5 — теория графов; гл. 1.8 и 3.5 — упорядоченные множества и решётки'},
+ {g:'opt', short:'Андерсон',    full:'Андерсон Дж. «Дискретная математика и комбинаторика»', note:'Берётся точечно: гл. 8 и 12 комбинаторика, гл. 13 производящие функции, гл. 16 сети. Есть ответы к упражнениям'},
+ {g:'umf', short:'Мартинсон',   full:'Мартинсон Л. К., Малов Ю. И. «Дифференциальные уравнения математической физики» (том XII)', note:'Основной учебник курса. Штурм — Лиувилль в приложении 2'},
+ {g:'umf', short:'Власова',     full:'Власова Е. А., Зарубин В. С., Кувыркин Г. Н. «Приближённые методы математической физики» (том XIII)', note:'Ч. I — вывод уравнений, гл. 4–5 — функциональный анализ, гл. 6 — приближённые методы'},
+ {g:'umf', short:'Галанин',     full:'Галанин М. П., Савенков Е. Б. «Методы численного анализа математических моделей»', note:'Разностные схемы, МКЭ; гл. 12 — триангуляция Делоне'},
+ {g:'umf', short:'Треногин',    full:'Треногин В. А. «Функциональный анализ»', note:'Справочный слой. Плюс задачник Треногина, Писаревского, Соболевой'},
+ {g:'umf', short:'Том XI',      full:'«Интегральные преобразования и операционное исчисление» (том XI)', note:'Преобразование Фурье для задачи Коши'},
+ {g:'imad',short:'Айвазян, т. 1',full:'Айвазян С. А., Мхитарян В. С. «Прикладная статистика и основы эконометрики». Том 1: Теория вероятностей и прикладная статистика', note:'Разделы 1, 2 и 4 курса ИМАД целиком'},
+ {g:'imad',short:'Айвазян, т. 2',full:'Айвазян С. А. «Основы эконометрики». Том 2', note:'Гл. 3 — временные ряды и SARIMA; 2.13 — логит и пробит'},
+ {g:'imad',short:'Грас',        full:'Грас Дж. «Data Science. Наука о данных с нуля», 2-е издание', note:'Всё с нуля на Python: гл. 24 — SQL, гл. 21 — обработка языка и векторы слов'},
+ {g:'imad',short:'Траск',       full:'Траск Э. «Грокаем глубокое обучение»', note:'Градиенты руками до всякого фреймворка'},
+ {g:'imad',short:'Хурбанс',     full:'Хурбанс Р. «Грокаем алгоритмы искусственного интеллекта»', note:'Гл. 4–7 — эволюционные алгоритмы и роевой интеллект, то есть метаэвристики'},
+ {g:'sp',  short:'Волков',      full:'Волков И. К., Зуев С. М., Цветкова Г. М. «Случайные процессы» (том XVIII)', note:'Марковские процессы, очереди, спектральная теория, фильтр Калмана'},
+ {g:'pto', short:'Афанасьев',   full:'Афанасьев М. Ю., Багриновский К. А., Матюшок В. М. «Прикладные задачи исследования операций»', note:'Готовые постановки: план, транспорт, запасы, очереди, имитация'},
+ {g:'pto', short:'Давыдов',     full:'Давыдов Э. Г. «Исследование операций»', note:'§1.5 — аппроксимация непрерывных игр конечными; §4.5 — управление экологической системой'},
+ {g:'pto', short:'Кремер',      full:'Кремер Н. Ш. «Исследование операций в экономике»', note:'11.3 — кусочно-линейная аппроксимация; гл. 15–16 — очереди и запасы'}
+];
+
+function renderBooks(){
+  const gmap={}; GOALS.forEach(g=>gmap[g.id]=g);
+  const order=['opt','umf','imad','sp','pto'];
+  const seen={};
+  return `<p class="loadnote">Полные выходные данные: на торце книги автор пишется не всегда, а в задачах стоит только фамилия.</p>` +
+  order.map(gid=>{
+    const list=BOOKS.filter(b=>b.g===gid);
+    if(!list.length) return '';
+    const g=gmap[gid];
+    return `<section class="goal">
+      <h2><i>${g.num}</i>${g.title}</h2>
+      <div class="tlist">${list.map(b=>`<div class="bookrow">
+        <span class="bshort">${b.short}</span>
+        <span class="bfull">${b.full}<span class="bnote">${b.note}</span></span>
+      </div>`).join('')}</div></section>`;
+  }).join('');
+}
+
+/* тип вопроса: one — один ответ, many — несколько, fill — вписать */
+const TESTS = [
+{id:'py1', from:2, topic:'Python', name:'FastAPI: первые шаги', q:[
+ {t:'one', q:'Чем обычно запускают FastAPI-приложение при разработке?',
+  o:['uvicorn','gunicorn без воркеров','nginx','встроенный сервер flask'], a:0,
+  e:'FastAPI — ASGI-фреймворк, ему нужен ASGI-сервер. uvicorn и есть такой сервер. gunicorn применяют в проде, но с uvicorn-воркерами.'},
+ {t:'one', q:'По какому адресу по умолчанию открывается интерактивная документация Swagger UI?',
+  o:['/swagger','/docs','/openapi','/api'], a:1,
+  e:'/docs — Swagger UI, /redoc — альтернативный вид, /openapi.json — сама схема.'},
+ {t:'fill', q:'Допишите декоратор для обработки GET-запроса: @app.____("/items")',
+  a:['get','@app.get','.get'], e:'Метод HTTP становится именем метода декоратора: get, post, put, patch, delete.'},
+ {t:'one', q:'Что произойдёт, если объявить @app.get("/users/me") ПОСЛЕ @app.get("/users/{user_id}")?',
+  o:['Ничего, FastAPI сам разберётся по точности совпадения','Запрос /users/me попадёт в обработчик с user_id = "me"','Приложение не запустится','Оба обработчика выполнятся по очереди'], a:1,
+  e:'Маршруты проверяются в порядке объявления. Фиксированные пути надо объявлять до путей с параметрами.'},
+ {t:'many', q:'Что даёт аннотация item_id: int в path-операции? Отметьте всё верное.',
+  o:['Значение из пути преобразуется к int','При нецелом значении вернётся ошибка валидации','Тип попадёт в схему OpenAPI и в /docs','Проверка произойдёт только внутри тела функции'], a:[0,1,2],
+  e:'Аннотация работает сразу как преобразование, как валидация и как документация. В этом вся идея FastAPI — один источник истины.'},
+ {t:'fill', q:'Какой HTTP-код возвращает FastAPI, если входные данные не прошли валидацию?',
+  a:['422'], e:'422 Unprocessable Entity, в теле — подробный список ошибок по каждому полю.'},
+ {t:'one', q:'Параметр функции, имени которого нет в шаблоне пути, FastAPI считает:',
+  o:['ошибкой','query-параметром','телом запроса','заголовком'], a:1,
+  e:'Простые типы вне пути становятся query-параметрами. Pydantic-модель в аргументах — телом запроса.'},
+ {t:'one', q:'Когда async def для обработчика даёт реальный выигрыш?',
+  o:['Всегда, async быстрее по определению','Когда внутри есть await к неблокирующим библиотекам','Когда обработчик считает что-то тяжёлое на CPU','Когда внутри обычный блокирующий запрос к БД'], a:1,
+  e:'Блокирующий вызов внутри async def останавливает весь event loop. Если библиотека синхронная — берите обычный def, FastAPI выполнит его в пуле потоков.'}
+]},
+
+{id:'py2', from:3, topic:'Python', name:'Pydantic и валидация', q:[
+ {t:'fill', q:'От какого класса наследуются модели в Pydantic?', a:['basemodel','pydantic.basemodel'],
+  e:'from pydantic import BaseModel — основа всего описания данных.'},
+ {t:'fill', q:'Какой аргумент декоратора маршрута задаёт модель ответа?', a:['response_model'],
+  e:'response_model фильтрует то, что уходит наружу, и описывает ответ в OpenAPI.'},
+ {t:'one', q:'Что означает Field(..., ge=0)?',
+  o:['Поле необязательное со значением по умолчанию 0','Поле обязательное, значение должно быть ≥ 0','Поле обязательное, значение строго больше 0','Поле только для чтения'], a:1,
+  e:'Многоточие как значение — признак обязательного поля. ge — greater or equal, gt — строго больше.'},
+ {t:'one', q:'Как в Pydantic v2 называется декоратор валидатора поля?',
+  o:['@validator','@field_validator','@check','@validates'], a:1,
+  e:'В v1 был @validator, в v2 — @field_validator для одного поля и @model_validator для модели целиком.'},
+ {t:'many', q:'Зачем разделять схемы UserCreate и UserRead?',
+  o:['Чтобы наружу не уходил хеш пароля','На вход и на выход обязательны разные поля','Документация точнее описывает контракт','Это ускоряет запросы к базе'], a:[0,1,2],
+  e:'Разделение схем — защита от утечки служебных полей. К скорости запросов оно отношения не имеет.'},
+ {t:'one', q:'Что нужно, чтобы Pydantic v2 читал поля из ORM-объекта, а не из словаря?',
+  o:['orm_mode = True','model_config = ConfigDict(from_attributes=True)','Ничего, работает по умолчанию','Ручной вызов dict(obj)'], a:1,
+  e:'В v1 это был orm_mode, в v2 — from_attributes.'},
+ {t:'fill', q:'Какой метод в Pydantic v2 заменил .dict()?', a:['model_dump','model_dump()'],
+  e:'.dict() и .json() объявлены устаревшими, теперь model_dump() и model_dump_json().'}
+]},
+
+{id:'py3', from:5, topic:'Python', name:'Структура, ошибки, зависимости', q:[
+ {t:'fill', q:'Какой класс используют, чтобы разнести маршруты по файлам?', a:['apirouter','fastapi.apirouter'],
+  e:'APIRouter объявляется в модуле, затем подключается через app.include_router().'},
+ {t:'one', q:'Что вернёт клиенту raise HTTPException(status_code=404, detail="Не найдено")?',
+  o:['Пустой ответ 404','Ответ 404 с телом {"detail": "Не найдено"}','500, потому что исключение не поймано','Редирект'], a:1,
+  e:'FastAPI ловит HTTPException сам и формирует JSON с полем detail.'},
+ {t:'one', q:'Что даёт зависимость с yield?',
+  o:['Ничего, это просто другой синтаксис','Код после yield выполняется после формирования ответа — там закрывают ресурс','Зависимость выполняется дважды','Ответ отдаётся потоком'], a:1,
+  e:'Классический случай — сессия БД: до yield открыли, отдали в обработчик, после yield закрыли в любом исходе.'},
+ {t:'one', q:'Одна и та же зависимость указана в двух местах одного запроса. Сколько раз она выполнится?',
+  o:['Один раз, результат кэшируется в пределах запроса','Два раза','Зависит от порядка объявления','Ни разу, будет ошибка'], a:0,
+  e:'По умолчанию use_cache=True, в пределах одного запроса результат переиспользуется.'},
+ {t:'one', q:'Зачем нужен pydantic-settings?',
+  o:['Чтобы хранить настройки в коде','Чтобы читать конфигурацию из окружения и .env с проверкой типов','Чтобы кэшировать ответы','Чтобы генерировать миграции'], a:1,
+  e:'Настройки становятся такой же типизированной моделью, как и данные запроса. Секреты при этом не попадают в репозиторий.'},
+ {t:'fill', q:'Какой аргумент include_router добавляет общий префикс ко всем маршрутам роутера?', a:['prefix'],
+  e:'app.include_router(users.router, prefix="/api/v1", tags=["users"]).'},
+ {t:'one', q:'Где корректнее всего проверять права доступа?',
+  o:['В начале каждого обработчика','В отдельной зависимости, подключаемой к маршруту или роутеру','В middleware для всего приложения без разбора','На фронтенде'], a:1,
+  e:'Зависимость даёт точечность и не дублируется. Проверка на фронтенде — удобство, а не защита.'}
+]},
+
+{id:'py4', from:8, topic:'Python', name:'База данных и Alembic', q:[
+ {t:'one', q:'Что делает alembic revision --autogenerate?',
+  o:['Применяет миграции к базе','Сравнивает модели с текущей схемой и генерирует черновик миграции','Удаляет таблицы и создаёт заново','Создаёт бэкап'], a:1,
+  e:'Именно черновик: результат нужно читать и править руками.'},
+ {t:'fill', q:'Команда отката ровно на одну миграцию назад: alembic ____ -1', a:['downgrade','alembic downgrade -1','downgrade -1'],
+  e:'downgrade -1 откатывает одну ревизию, upgrade head применяет все до последней.'},
+ {t:'one', q:'Почему результату autogenerate нельзя доверять вслепую?',
+  o:['Он работает только с SQLite','Он не распознаёт переименования и не переносит данные','Он всегда пустой','Он ломает индексы'], a:1,
+  e:'Переименование колонки он видит как удаление одной и добавление другой — данные пропадут.'},
+ {t:'one', q:'Что в SQLAlchemy 2.0 пришло на смену session.query(Model)?',
+  o:['select(Model) вместе с session.execute()','Model.objects.all()','session.fetch(Model)','Ничего, query остался единственным способом'], a:0,
+  e:'Стиль 2.0 — select() и execute(), единый для синхронного и асинхронного кода.'},
+ {t:'many', q:'Признаки проблемы N+1. Отметьте всё верное.',
+  o:['На каждый объект списка уходит отдельный SELECT','Число запросов растёт линейно с размером выборки','Лечится через selectinload или joinedload','Лечится увеличением размера пула соединений'], a:[0,1,2],
+  e:'Пул соединений тут не помогает: проблема в количестве запросов, а не в их параллельности.'},
+ {t:'one', q:'Что нужно для асинхронной работы с базой?',
+  o:['Только написать async def у обработчиков','create_async_engine, AsyncSession и асинхронный драйвер','Переключить uvicorn в многопоточный режим','Ничего, SQLAlchemy асинхронен по умолчанию'], a:1,
+  e:'Без asyncpg или aiosqlite обращение к базе останется блокирующим, и async def только навредит.'},
+ {t:'one', q:'Где правильно закрывать сессию БД?',
+  o:['В конце каждого обработчика вручную','В зависимости с yield, после yield','В middleware','Нигде, сборщик мусора справится'], a:1,
+  e:'Зависимость с yield гарантирует закрытие и при исключении тоже.'}
+]},
+
+{id:'py5', from:10, topic:'Python', name:'Аутентификация и тестирование', q:[
+ {t:'one', q:'Что верно про подписанный JWT?',
+  o:['Содержимое зашифровано и недоступно клиенту','Содержимое читается кем угодно, подпись защищает только от подмены','Токен нельзя расшифровать без пароля пользователя','Токен хранится на сервере'], a:1,
+  e:'Payload — это base64, а не шифр. Класть туда что-то чувствительное нельзя.'},
+ {t:'one', q:'Почему пароли хешируют, а не шифруют?',
+  o:['Хеш занимает меньше места','Хеш необратим, а шифрование обратимо при утечке ключа','Шифрование медленнее','Разницы нет'], a:1,
+  e:'При утечке базы с хешами злоумышленник не получает пароли напрямую. Отсюда же требование медленного алгоритма — bcrypt, argon2.'},
+ {t:'one', q:'Что делает OAuth2PasswordBearer(tokenUrl="token")?',
+  o:['Выдаёт токен','Достаёт токен из заголовка Authorization: Bearer и описывает схему в /docs','Проверяет подпись токена','Хеширует пароль'], a:1,
+  e:'Это зависимость-извлекатель. Проверку подписи и срок действия вы пишете сами.'},
+ {t:'one', q:'Чем тестировать асинхронное FastAPI-приложение?',
+  o:['requests','httpx.AsyncClient с ASGI-транспортом','urllib','curl из subprocess'], a:1,
+  e:'AsyncClient работает с приложением напрямую, без поднятия реального сервера и без сети.'},
+ {t:'many', q:'Признаки хорошего теста API. Отметьте всё верное.',
+  o:['Использует отдельную тестовую базу','Не зависит от порядка запуска других тестов','Откатывает свои изменения','Проверяет данные в продовой базе'], a:[0,1,2],
+  e:'Зависимость от порядка — самая частая причина тестов, которые «иногда падают».'},
+ {t:'fill', q:'Какой флаг pytest показывает покрытие кода тестами?', a:['--cov','cov','pytest --cov'],
+  e:'pytest --cov=app показывает покрытие по модулям.'},
+ {t:'one', q:'Что подменяют в тестах, чтобы обработчики ходили в тестовую базу?',
+  o:['Импорты в модуле','app.dependency_overrides для зависимости сессии','Переменную окружения на лету','Ничего, тесты идут в основную базу'], a:1,
+  e:'dependency_overrides — штатный механизм подмены любой зависимости в тестах.'}
+]},
+
+{id:'py6', from:12, topic:'Python', name:'Докер, фон, деплой', q:[
+ {t:'one', q:'Зачем приложению CORS middleware?',
+  o:['Чтобы ускорить ответы','Чтобы браузер разрешил запросы со страницы на другом origin','Чтобы сжимать ответы','Чтобы шифровать трафик'], a:1,
+  e:'Ограничение вводит браузер. Запросы не из браузера CORS не касается.'},
+ {t:'one', q:'Чем BackgroundTasks отличается от Celery или arq?',
+  o:['Ничем','BackgroundTasks выполняется в том же процессе и теряется при перезапуске','BackgroundTasks надёжнее','Celery работает только с Redis'], a:1,
+  e:'BackgroundTasks годится для отправки письма, но не для задач, потерю которых заметят.'},
+ {t:'fill', q:'Какая инструкция Dockerfile задаёт команду запуска контейнера?', a:['cmd','CMD'],
+  e:'CMD задаёт команду по умолчанию, ENTRYPOINT — неизменяемую часть команды.'},
+ {t:'one', q:'Почему секреты не кладут в образ?',
+  o:['Образ весит больше','Слои образа доступны любому, кто его получил','Docker их стирает','Это не мешает'], a:1,
+  e:'Секрет, попавший в слой, остаётся там даже после удаления файла в следующем слое.'},
+ {t:'one', q:'Что гарантирует depends_on в docker-compose?',
+  o:['Что зависимый сервис полностью готов принимать запросы','Только порядок запуска контейнеров','Общую сеть','Общий том'], a:1,
+  e:'Готовность проверяют через healthcheck и ретраи при подключении.'},
+ {t:'many', q:'Что разумно проверять в CI? Отметьте всё верное.',
+  o:['Линтер и форматирование','Тесты','Сборку образа','Ручной прогон в браузере'], a:[0,1,2],
+  e:'CI автоматизирует то, что повторяется. Ручной прогон в него не помещается по определению.'}
+]},
+
+{id:'jv1', from:3, topic:'Java', name:'Java: синтаксис и ООП', q:[
+ {t:'one', q:'Что исполняет JVM?',
+  o:['Исходный код .java','Байт-код .class','Машинный код процессора','Скрипты сборки'], a:1,
+  e:'javac компилирует исходник в байт-код, JVM его исполняет. Отсюда и переносимость.'},
+ {t:'fill', q:'Каким ключевым словом класс наследуется от другого класса?', a:['extends'],
+  e:'extends — для классов, implements — для интерфейсов.'},
+ {t:'one', q:'В чём разница между int и Integer?',
+  o:['Разницы нет','int — примитив, Integer — объект-обёртка, может быть null','Integer быстрее','int может быть null'], a:1,
+  e:'Автоупаковка скрывает разницу, пока Integer не окажется null — тогда получите NullPointerException при распаковке.'},
+ {t:'one', q:'Как сравнить две строки по содержимому?',
+  o:['через ==','через equals','через compare','через ==='], a:1,
+  e:'== сравнивает ссылки. Из-за пула строковых литералов это иногда случайно работает, что делает ошибку особенно коварной.'},
+ {t:'many', q:'Что верно про интерфейсы в Java 8 и новее?',
+  o:['Могут содержать default-методы','Не могут хранить состояние в обычных полях','Класс может реализовать несколько интерфейсов','Могут иметь конструктор'], a:[0,1,2],
+  e:'Конструктора у интерфейса нет — создавать нечего. Множественная реализация и есть обходной путь вместо множественного наследования классов.'},
+ {t:'fill', q:'Каким ключевым словом класс реализует интерфейс?', a:['implements'],
+  e:'class UserService implements Service.'},
+ {t:'one', q:'Что такое static-метод?',
+  o:['Метод, который нельзя переопределить','Метод класса, вызывается без создания экземпляра','Метод, возвращающий константу','Приватный метод'], a:1,
+  e:'Он принадлежит классу, а не объекту, и не имеет доступа к this.'},
+ {t:'one', q:'Перегрузка метода (overload) — это:',
+  o:['Одно имя, разные списки параметров в пределах класса','Переопределение метода родителя в наследнике','Вызов метода из другого потока','Метод с большим числом строк'], a:0,
+  e:'Переопределение — это override, и оно про наследование. Перегрузка разрешается на этапе компиляции.'}
+]},
+
+{id:'jv2', from:6, topic:'Java', name:'Коллекции, дженерики, Stream API', q:[
+ {t:'one', q:'Какая реализация Map сохраняет порядок вставки?',
+  o:['HashMap','LinkedHashMap','TreeMap','Hashtable'], a:1,
+  e:'TreeMap сортирует по ключу, HashMap порядок не гарантирует, LinkedHashMap помнит порядок добавления.'},
+ {t:'one', q:'Чем ArrayList лучше LinkedList?',
+  o:['Быстрой вставкой в середину','Быстрым доступом по индексу','Меньшим потреблением памяти на элемент всегда','Потокобезопасностью'], a:1,
+  e:'ArrayList — массив внутри, доступ по индексу за константу. На практике он выигрывает почти всегда.'},
+ {t:'one', q:'Что нужно переопределить, чтобы объект корректно работал ключом HashMap?',
+  o:['только equals','только hashCode','equals и hashCode вместе','toString'], a:2,
+  e:'Одно без другого ломает поиск: объект попадёт в корзину и не найдётся либо найдётся не тот.'},
+ {t:'fill', q:'Какой интерфейс задаёт правило сортировки снаружи объекта?', a:['comparator'],
+  e:'Comparable — естественный порядок внутри класса, Comparator — внешний и сменный.'},
+ {t:'many', q:'Что верно про checked-исключения?',
+  o:['Требуют обработки или объявления в throws','Наследуются от Exception, но не от RuntimeException','IOException — пример такого исключения','NullPointerException — пример такого исключения'], a:[0,1,2],
+  e:'NPE наследуется от RuntimeException, то есть unchecked, и компилятор его не требует обрабатывать.'},
+ {t:'one', q:'Стрим ленив. Что это значит?',
+  o:['Он работает медленно','Промежуточные операции не выполняются, пока нет терминальной','Он выполняется в отдельном потоке','Он кэширует результат'], a:1,
+  e:'Цепочка filter().map() без collect() или forEach() не сделает ничего.'},
+ {t:'fill', q:'Терминальная операция, собирающая стрим в список (Java 16+): stream().____()', a:['tolist','tolist()','collect(collectors.tolist())'],
+  e:'toList() появился в 16, до этого — collect(Collectors.toList()).'},
+ {t:'one', q:'Зачем нужны дженерики?',
+  o:['Для ускорения работы','Для проверки типов на этапе компиляции вместо приведения в рантайме','Для экономии памяти','Для многопоточности'], a:1,
+  e:'List<String> не даст положить туда число. До дженериков ошибка всплывала только при ClassCastException в рантайме.'}
+]},
+
+{id:'jv3', from:8, topic:'Java', name:'Android: основы', q:[
+ {t:'fill', q:'Какой метод вызывается при создании Activity?', a:['oncreate','oncreate()'],
+  e:'onCreate — там разметка через setContentView и инициализация.'},
+ {t:'one', q:'Каков порядок при открытии экрана?',
+  o:['onStart → onCreate → onResume','onCreate → onStart → onResume','onCreate → onResume → onStart','onResume → onCreate → onStart'], a:1,
+  e:'При уходе с экрана — зеркально: onPause → onStop → onDestroy.'},
+ {t:'one', q:'Что происходит при повороте экрана по умолчанию?',
+  o:['Ничего','Activity пересоздаётся, данные в обычных полях теряются','Приложение перезапускается целиком','Экран замирает'], a:1,
+  e:'Поворот — это смена конфигурации. Отсюда и нужда в ViewModel или onSaveInstanceState.'},
+ {t:'one', q:'Зачем нужна ViewModel?',
+  o:['Для отрисовки разметки','Она переживает пересоздание Activity и хранит состояние экрана','Для сетевых запросов вместо Retrofit','Для хранения данных на диске'], a:1,
+  e:'ViewModel живёт, пока жив владелец, и не привязана к конкретному экземпляру Activity.'},
+ {t:'one', q:'В чём смысл RecyclerView?',
+  o:['Он красивее ListView','Он переиспользует view-холдеры вместо создания новых при прокрутке','Он сам грузит данные из сети','Он работает без адаптера'], a:1,
+  e:'Отсюда название: элементы перерабатываются. Для списка на тысячу строк создаётся лишь десяток вью.'},
+ {t:'many', q:'Что нужно для сетевого запроса из приложения?',
+  o:['Разрешение INTERNET в манифесте','Выполнение запроса вне главного потока','Обработка ошибок сети и таймаутов','Синхронный вызов прямо в onCreate'], a:[0,1,2],
+  e:'Сетевой вызов в главном потоке вызовет NetworkOnMainThreadException — Android запрещает это явно.'}
+]},
+
+{id:'um1', from:2, topic:'УМФ', name:'Классификация и канонический вид', q:[
+ {t:'one', q:'Чем определяется тип уравнения a·u_xx + 2b·u_xy + c·u_yy + … = 0?',
+  o:['знаком a','знаком дискриминанта b² − ac','знаком c','порядком младших членов'], a:1,
+  e:'Младшие члены на тип не влияют, всё решает главная часть.'},
+ {t:'fill', q:'Какой тип у уравнения, если b² − ac > 0?', a:['гиперболический','гиперболическое'],
+  e:'Больше нуля — гиперболический, равно нулю — параболический, меньше нуля — эллиптический.'},
+ {t:'one', q:'Уравнение Лапласа u_xx + u_yy = 0 относится к типу:',
+  o:['гиперболическому','параболическому','эллиптическому','смешанному'], a:2,
+  e:'Здесь a = c = 1, b = 0, значит b² − ac = −1 < 0.'},
+ {t:'one', q:'Уравнение теплопроводности u_t = a²·u_xx относится к типу:',
+  o:['гиперболическому','параболическому','эллиптическому','ни к одному'], a:1,
+  e:'Второй производной по t нет, дискриминант обращается в ноль.'},
+ {t:'one', q:'Сколько семейств вещественных характеристик у гиперболического уравнения?',
+  o:['ни одного','одно','два','бесконечно много'], a:2,
+  e:'У параболического — одно, у эллиптического вещественных нет, характеристики комплексные.'},
+ {t:'fill', q:'Какой тип у уравнения, если b² − ac = 0?', a:['параболический','параболическое'],
+  e:'Одно семейство характеристик, канонический вид содержит одну вторую производную.'},
+ {t:'one', q:'Что входит в понятие корректности задачи по Адамару?',
+  o:['Только существование решения','Существование, единственность и непрерывная зависимость от данных','Существование и гладкость','Линейность и однородность'], a:1,
+  e:'Третье условие важнее всего на практике: без него малая погрешность в данных даёт произвольно большую погрешность в решении.'}
+]},
+
+{id:'um2', from:6, topic:'УМФ', name:'Гиперболические уравнения и метод Фурье', q:[
+ {t:'one', q:'Что описывает формула Даламбера?',
+  o:['Решение задачи Дирихле для уравнения Лапласа','Решение задачи Коши для волнового уравнения на прямой','Решение уравнения теплопроводности','Собственные значения оператора'], a:1,
+  e:'Решение представляется суммой двух волн, бегущих навстречу друг другу.'},
+ {t:'one', q:'Что такое область зависимости точки (x, t) для волнового уравнения?',
+  o:['вся начальная прямая','отрезок [x − at, x + at] на начальной прямой','одна точка x','полупрямая от x'], a:1,
+  e:'Конечная скорость распространения возмущений — ключевое отличие от уравнения теплопроводности.'},
+ {t:'fill', q:'Метод решения краевой задачи, приводящий к задаче Штурма — Лиувилля, называется методом ____ переменных.', a:['разделения','разделения переменных','фурье'],
+  e:'Он же метод Фурье: решение ищется в виде произведения функций от разных аргументов.'},
+ {t:'one', q:'Каковы собственные функции задачи X″ + λX = 0, X(0) = X(l) = 0?',
+  o:['cos(πnx/l)','sin(πnx/l)','exp(−πnx/l)','x^n'], a:1,
+  e:'Условие на левом конце обнуляет косинус, на правом — даёт дискретный набор значений.'},
+ {t:'one', q:'Каковы собственные значения той же задачи?',
+  o:['λn = πn/l','λn = (πn/l)²','λn = n','λn = (l/πn)²'], a:1,
+  e:'Квадрат появляется потому, что в уравнении стоит вторая производная.'},
+ {t:'many', q:'Что верно про задачу Штурма — Лиувилля?',
+  o:['Собственные значения вещественны','Собственные функции ортогональны','Система собственных функций полна','Собственных значений конечное число'], a:[0,1,2],
+  e:'Собственных значений счётное множество, и они уходят на бесконечность. Именно поэтому решение раскладывается в бесконечный ряд.'},
+ {t:'one', q:'Для чего применяют метод отражений?',
+  o:['Для задачи на всей прямой','Для задачи на полупрямой с учётом условия на границе','Для эллиптических уравнений','Для нелинейных уравнений'], a:1,
+  e:'Задачу продолжают на всю прямую чётно или нечётно, в зависимости от рода граничного условия, и применяют Даламбера.'}
+]},
+
+{id:'um3', from:10, topic:'УМФ', name:'Параболические и эллиптические уравнения', q:[
+ {t:'one', q:'Что утверждает принцип максимума для уравнения теплопроводности?',
+  o:['Максимум достигается внутри области','Максимум достигается на параболической границе','Максимум равен нулю','Максимума может не быть'], a:1,
+  e:'Из него следует единственность решения и непрерывная зависимость от данных.'},
+ {t:'one', q:'Какова скорость распространения возмущения в уравнении теплопроводности?',
+  o:['конечная и равна a','бесконечная','нулевая','зависит от начальных данных'], a:1,
+  e:'Физически нереалистичное свойство модели: возмущение в точке мгновенно меняет решение всюду, пусть и экспоненциально мало.'},
+ {t:'fill', q:'Функция, гармоническая в области, удовлетворяет уравнению ____.', a:['лапласа','лаплас'],
+  e:'Δu = 0. Решения уравнения Пуассона Δu = f гармоническими не называют.'},
+ {t:'one', q:'Что утверждает теорема о среднем для гармонической функции?',
+  o:['Значение в центре шара равно среднему по сфере','Среднее по области равно нулю','Функция постоянна','Градиент равен нулю'], a:0,
+  e:'Отсюда следуют и принцип максимума, и бесконечная гладкость гармонических функций.'},
+ {t:'one', q:'Задача Неймана для уравнения Лапласа:',
+  o:['задаёт значение функции на границе','задаёт нормальную производную и требует условия согласования','не имеет решений','эквивалентна задаче Коши'], a:1,
+  e:'Интеграл потока по границе должен быть нулевым, иначе решения нет. И решение определено с точностью до константы.'},
+ {t:'one', q:'Что такое функция Грина задачи Дирихле?',
+  o:['Любое частное решение','Решение с точечным источником, обращающееся в ноль на границе','Фундаментальное решение без учёта границы','Собственная функция оператора'], a:1,
+  e:'Через неё решение записывается интегралом по области и по границе для произвольной правой части.'}
+]},
+
+{id:'im1', from:7, topic:'ИМАД', name:'Основы, статистика, хранилища данных', q:[
+ {t:'one', q:'Как соотносятся KDD и Data Mining?',
+  o:['Это синонимы','Data Mining — один из этапов процесса KDD','KDD — один из этапов Data Mining','Это несвязанные понятия'], a:1,
+  e:'KDD — весь путь от сырых данных до знания: отбор, очистка, преобразование, добыча, интерпретация. Собственно Data Mining — только четвёртый шаг.'},
+ {t:'fill', q:'Методология из шести фаз: понимание задачи → понимание данных → подготовка → моделирование → оценка → внедрение. Как она называется?',
+  a:['crisp-dm','crispdm','crisp dm'],
+  e:'CRISP-DM. Главное в ней — цикличность: с фазы оценки часто возвращаются к пониманию задачи.'},
+ {t:'one', q:'К какой шкале относится признак «уровень образования: среднее, бакалавр, магистр»?',
+  o:['номинальной','порядковой','интервальной','отношений'], a:1,
+  e:'Порядок есть, а расстояние между градациями не определено. Считать среднее по такому признаку нельзя.'},
+ {t:'one', q:'Почему параметры нормализации вычисляют по обучающей выборке, а не по всем данным сразу?',
+  o:['Так быстрее','Иначе информация из тестовой выборки протекает в обучение и оценка качества завышается','Разницы нет','Так требует scikit-learn'], a:1,
+  e:'Это утечка данных. Модель кажется лучше, чем есть, и на новых данных результат оказывается хуже ожидаемого.'},
+ {t:'many', q:'Допустимые способы обработки пропусков. Отметьте всё верное.',
+  o:['Удаление строк, если пропусков мало','Заполнение медианой или модой','Предсказание пропуска моделью по остальным признакам','Замена на ноль — всегда корректный вариант'], a:[0,1,2],
+  e:'Ноль — это конкретное значение, а не «неизвестно». Для дохода или температуры такая замена искажает распределение.'},
+ {t:'one', q:'Чем OLAP-система отличается от OLTP?',
+  o:['OLAP быстрее записывает данные','OLAP рассчитана на аналитические запросы по большим объёмам, OLTP — на частые короткие транзакции','OLAP не использует SQL','Разница только в объёме диска'], a:1,
+  e:'Отсюда и разная нормализация: OLTP избегает дублирования ради целостности, хранилище идёт на дублирование ради скорости чтения.'},
+ {t:'fill', q:'Как называется схема хранилища, где таблица фактов окружена ненормализованными таблицами измерений?',
+  a:['звезда','звезду','star'],
+  e:'Звезда. Запросы к ней проще и быстрее, платой становится избыточность в измерениях.'},
+ {t:'one', q:'Чем снежинка отличается от звезды?',
+  o:['Числом таблиц фактов','Измерения нормализованы и разбиты на несколько связанных таблиц','Отсутствием мер','Типом СУБД'], a:1,
+  e:'Снежинка экономит место и упрощает поддержку справочников, но добавляет соединений в каждый запрос.'},
+ {t:'one', q:'Что делает операция drill-down над OLAP-кубом?',
+  o:['Переходит к более детальному уровню измерения','Агрегирует данные до более высокого уровня','Фиксирует одно значение измерения','Меняет местами оси'], a:0,
+  e:'Обратная ей — roll-up, свёртка. Slice фиксирует значение измерения, dice берёт подкуб по диапазонам.'},
+ {t:'fill', q:'Каким сокращением обозначают процесс извлечения, преобразования и загрузки данных в хранилище?',
+  a:['etl'], e:'Extract, Transform, Load. В варианте ELT преобразование выполняется уже внутри хранилища.'}
+]},
+
+{id:'im2', from:10, topic:'ИМАД', name:'Задачи интеллектуального анализа', q:[
+ {t:'one', q:'Кластеризация относится к обучению:',
+  o:['с учителем','без учителя','с подкреплением','активному'], a:1,
+  e:'Разметки нет, структуру группировки алгоритм ищет сам. Поэтому и оценивать качество здесь сложнее.'},
+ {t:'one', q:'Что принципиально требуется методу k-means, но не требуется DBSCAN?',
+  o:['Нормализация признаков','Заранее заданное число кластеров','Числовые признаки','Метрика расстояния'], a:1,
+  e:'DBSCAN выводит число кластеров сам из плотности и отдельно помечает шумовые точки, чего k-means не умеет.'},
+ {t:'fill', q:'Классический алгоритм поиска ассоциативных правил, опирающийся на антимонотонность поддержки:',
+  a:['apriori','априори'],
+  e:'Если набор нечастый, то и любой его надмножество нечастое. Это отсекает перебор.'},
+ {t:'one', q:'Что показывает поддержка (support) правила?',
+  o:['Долю транзакций, содержащих весь набор','Условную вероятность следствия при условии посылки','Число правил','Отношение к случайному совпадению'], a:0,
+  e:'Условная вероятность — это достоверность (confidence), а поправка на случайность — лифт (lift).'},
+ {t:'many', q:'Признаки переобучения и способы борьбы с ним. Отметьте всё верное.',
+  o:['Качество на обучении заметно выше, чем на отложенной выборке','Модель воспроизводит шум обучающих данных','Помогает упрощение модели и регуляризация','Помогает увеличение числа эпох обучения'], a:[0,1,2],
+  e:'Лишние эпохи как раз усиливают переобучение — отсюда приём ранней остановки.'},
+ {t:'one', q:'Зачем нужна кросс-валидация?',
+  o:['Чтобы ускорить обучение','Чтобы получить устойчивую оценку качества, не зависящую от одного случайного разбиения','Чтобы увеличить объём данных','Чтобы подобрать признаки'], a:1,
+  e:'На малых выборках оценка по единственному разбиению скачет настолько, что сравнивать по ней модели бессмысленно.'},
+ {t:'one', q:'Почему accuracy — плохая метрика при сильном дисбалансе классов?',
+  o:['Её сложно считать','Модель, всегда предсказывающая большинство, получает высокое значение, ничего не выявляя','Она не определена','Она зависит от порога'], a:1,
+  e:'При 1 % положительных примеров тривиальный ответ «нет» даёт 99 %. Смотреть надо на precision, recall и F1 по редкому классу.'},
+ {t:'fill', q:'Метрика, равная среднему гармоническому точности и полноты:',
+  a:['f1','f1-мера','f-мера','f1 score'],
+  e:'Гармоническое среднее наказывает за перекос: высокий F1 требует, чтобы обе величины были приличными.'},
+ {t:'one', q:'Что означает ROC-AUC?',
+  o:['Долю верных ответов','Вероятность того, что случайный положительный объект получит больший скор, чем случайный отрицательный','Площадь под кривой обучения','Среднюю ошибку'], a:1,
+  e:'Метрика не зависит от выбора порога, поэтому удобна для сравнения моделей до его подбора.'},
+ {t:'one', q:'Что произойдёт с деревом решений без ограничения глубины?',
+  o:['Оно не обучится','Оно переобучится, описав обучающую выборку почти идеально','Оно станет линейным','Оно потеряет интерпретируемость и только'], a:1,
+  e:'Отсюда обрезка, ограничение глубины и минимального размера листа — либо переход к ансамблю.'}
+]},
+
+{id:'im3', from:12, topic:'ИМАД', name:'Нейронные сети и LLM', q:[
+ {t:'fill', q:'Как называется алгоритм вычисления градиентов по слоям нейросети?',
+  a:['обратное распространение','обратное распространение ошибки','backpropagation','бэкпропагейшн','метод обратного распространения'],
+  e:'По сути это правило дифференцирования сложной функции, применённое от выхода к входу.'},
+ {t:'one', q:'Что будет с сетью из десяти слоёв без нелинейных функций активации?',
+  o:['Она станет точнее','Она эквивалентна одному линейному слою','Она перестанет обучаться','Она будет обучаться быстрее, но хуже'], a:1,
+  e:'Композиция линейных отображений линейна. Вся выразительная сила глубины держится на нелинейности.'},
+ {t:'one', q:'У какой функции активации проблема затухающего градиента выражена сильнее?',
+  o:['ReLU','сигмоида','Leaky ReLU','GELU'], a:1,
+  e:'Производная сигмоиды мала на краях, и при перемножении по слоям градиент гаснет. ReLU эту проблему в основном снимает.'},
+ {t:'many', q:'Что помогает против переобучения нейросети? Отметьте всё верное.',
+  o:['Dropout','L2-регуляризация','Ранняя остановка по валидационной ошибке','Увеличение скорости обучения'], a:[0,1,2],
+  e:'Скорость обучения влияет на сходимость, а не на обобщающую способность. Слишком большая просто не даст сойтись.'},
+ {t:'one', q:'Почему свёрточные сети хорошо работают с изображениями?',
+  o:['Они быстрее полносвязных','Они используют локальность признаков и общие веса фильтров','Они не требуют обучения','Они работают только с изображениями'], a:1,
+  e:'Один фильтр ищет свой признак по всему изображению — это резко сокращает число параметров и даёт устойчивость к сдвигу.'},
+ {t:'fill', q:'Какой механизм лежит в основе архитектуры трансформера?',
+  a:['внимание','механизм внимания','attention','self-attention','самовнимание'],
+  e:'Внимание позволяет каждому токену напрямую обращаться к любому другому, без последовательного прохода, как в рекуррентных сетях.'},
+ {t:'one', q:'Что такое few-shot prompting?',
+  o:['Дообучение модели на небольшом наборе данных','Несколько примеров нужного поведения прямо в запросе, без изменения весов','Запрос с ограничением длины ответа','Запуск модели несколько раз подряд'], a:1,
+  e:'Веса не трогаются вовсе. Именно этим few-shot отличается от fine-tuning, который часто путают с ним.'},
+ {t:'one', q:'Что даёт схема RAG?',
+  o:['Ускоряет генерацию','Модель отвечает, опираясь на найденные под запрос документы, а не только на параметры','Уменьшает размер модели','Полностью исключает ошибки'], a:1,
+  e:'Это способ дать модели свежие или закрытые данные без дообучения. Ошибки остаются: модель может неверно прочитать найденный фрагмент.'},
+ {t:'one', q:'Почему языковая модель уверенно выдаёт неверные факты?',
+  o:['В обучающих данных были ошибки, и только','Она обучена продолжать текст правдоподобно, а не проверять истинность','Она намеренно вводит в заблуждение','Из-за высокой температуры генерации, и только'], a:1,
+  e:'Правдоподобное и истинное — разные целевые функции. Отсюда и потребность в проверке фактов и в опоре на источники.'},
+ {t:'one', q:'Что такое эмбеддинг текста?',
+  o:['Сжатая копия текста','Числовой вектор, у семантически близких текстов близкий','Хеш строки','Токенизированная последовательность'], a:1,
+  e:'На близости векторов и построен поиск в RAG: находим фрагменты, близкие к вопросу, а не совпадающие по словам.'}
+]},
+
+{id:'um4', from:13, topic:'УМФ', name:'Приближённые и сеточные методы', q:[
+ {t:'one', q:'Что требует метод Бубнова — Галёркина от невязки приближённого решения?',
+  o:['Чтобы она была равна нулю всюду','Чтобы она была ортогональна базисным функциям','Чтобы она была минимальна по модулю','Чтобы она обращалась в ноль в узлах сетки'], a:1,
+  e:'Равенство нулю всюду означало бы точное решение. Ортогональность к конечному набору базисных функций — это конечное число уравнений на коэффициенты.'},
+ {t:'one', q:'Чем метод коллокации отличается от метода Галёркина?',
+  o:['Невязка обращается в ноль в выбранных точках, а не ортогональна базису','Он не использует базисные функции','Он требует симметричности оператора','Он применим только к одномерным задачам'], a:0,
+  e:'Отсюда и вопрос, где ставить точки коллокации: от их расположения качество приближения зависит напрямую.'},
+ {t:'fill', q:'Какой метод минимизирует интеграл от квадрата невязки?',
+  a:['наименьших квадратов','метод наименьших квадратов','мнк'],
+  e:'Даёт симметричную систему на коэффициенты, но требует более гладких базисных функций, чем Галёркин.'},
+ {t:'one', q:'Когда применим метод Ритца?',
+  o:['Всегда','Когда задача сводится к минимизации функционала, то есть оператор положительно определён','Только для гиперболических уравнений','Только на равномерной сетке'], a:1,
+  e:'Без положительной определённости минимизировать нечего, и остаётся Галёркин, который этого не требует.'},
+ {t:'one', q:'Что означает аппроксимация разностной схемы?',
+  o:['Разностное решение близко к точному','Разностный оператор при измельчении сетки стремится к дифференциальному','Схема устойчива','Матрица системы трёхдиагональна'], a:1,
+  e:'Близость решений — это сходимость, другое свойство. Аппроксимация говорит только об операторе, не о решении.'},
+ {t:'many', q:'Что нужно для сходимости разностной схемы?',
+  o:['Аппроксимация','Устойчивость','Монотонность схемы','Явный вид схемы'], a:[0,1],
+  e:'Аппроксимация плюс устойчивость дают сходимость — это теорема Лакса. Монотонность важна для качества решения с разрывами, но к сходимости отношения не имеет.'},
+ {t:'one', q:'Для каких систем предназначен метод прогонки?',
+  o:['Для любых СЛАУ','Для систем с трёхдиагональной матрицей','Для нелинейных систем','Для переопределённых систем'], a:1,
+  e:'Именно такие системы возникают из трёхточечных разностных схем для одномерных краевых задач.'},
+ {t:'one', q:'Явная схема для уравнения теплопроводности:',
+  o:['устойчива всегда','условно устойчива: шаг по времени ограничен сверху квадратом шага по пространству','неустойчива всегда','устойчива только на неравномерной сетке'], a:1,
+  e:'Именно поэтому при измельчении сетки вдвое шаг по времени приходится уменьшать вчетверо — и почему неявные схемы часто выгоднее, несмотря на решение системы на каждом слое.'}
+]},
+
+{id:'geo1', from:4, topic:'ВКР', name:'Выпуклая геометрия и аппроксимация множеств', q:[
+ {t:'one', q:'Что такое крайняя (угловая) точка выпуклого множества?',
+  o:['Точка границы','Точка, не являющаяся внутренней точкой ни одного отрезка, целиком лежащего в множестве','Точка, ближайшая к началу координат','Любая точка, где множество недифференцируемо'], a:1,
+  e:'Не всякая точка границы крайняя: у круга крайняя каждая точка окружности, а у квадрата — только четыре вершины, хотя граница состоит из отрезков.'},
+ {t:'one', q:'Что утверждает теорема Минковского для выпуклого компакта в конечномерном пространстве?',
+  o:['Он совпадает с выпуклой оболочкой своих крайних точек','Он является полиэдром','У него конечное число крайних точек','Он ограничен гиперплоскостью'], a:0,
+  e:'Это и есть основание многоточечного подхода: множество полностью восстанавливается по своим крайним точкам. Конечно их число или нет — отдельный вопрос.'},
+ {t:'fill', q:'Опорная функция множества X в направлении c равна ____ скалярного произведения ⟨c, x⟩ по всем x из X.',
+  a:['супремуму','супремум','sup','точной верхней грани','максимуму','максимум'],
+  e:'Для замкнутого выпуклого множества опорная функция задаёт его однозначно — поэтому аппроксимировать множество можно, аппроксимируя её.'},
+ {t:'one', q:'Теорема Минковского — Вейля утверждает, что полиэдр допускает два описания. Какие?',
+  o:['Через систему уравнений и через параметризацию','Как пересечение конечного числа полупространств и как сумма выпуклой оболочки конечного набора точек с конечно порождённым конусом','Через крайние точки и через центр тяжести','Через опорную функцию и через объём'], a:1,
+  e:'Внешнее описание неравенствами и внутреннее описание точками — это те самые два пути аппроксимации, снаружи и изнутри.'},
+ {t:'one', q:'Когда расстояние Хаусдорфа между множествами A и B равно нулю?',
+  o:['Когда A и B пересекаются','Когда их замыкания совпадают','Когда они имеют равный объём','Когда одно содержится в другом'], a:1,
+  e:'Это метрика на замкнутых множествах, и обращается в ноль она только при совпадении — что и делает её пригодной для оценки качества приближения.'},
+ {t:'many', q:'Что верно про внешнюю аппроксимацию выпуклого множества пересечением полупространств?',
+  o:['Приближающее множество содержит исходное','Даёт оценку сверху для максимума линейной функции на множестве','Уточняется добавлением новых полупространств','Всегда точнее внутренней аппроксимации'], a:[0,1,2],
+  e:'Внешняя и внутренняя аппроксимации дают оценки с разных сторон, и вместе зажимают ответ в вилку. Ни одна не «точнее» другой по определению.'},
+ {t:'one', q:'Что даёт внутренняя аппроксимация — выпуклая оболочка конечного набора точек множества?',
+  o:['Оценку снизу для максимума линейной функции','Оценку сверху для максимума','Точное значение максимума','Ничего, пока точек не бесконечно много'], a:0,
+  e:'Максимум по подмножеству не превосходит максимума по всему множеству. Разница между оценками снизу и сверху — готовый критерий остановки алгоритма.'},
+ {t:'one', q:'В чём суть шага метода отсекающих плоскостей?',
+  o:['Добавляется ограничение, отсекающее текущее недопустимое решение и не отсекающее ни одной допустимой точки','Удаляется одно из ограничений','Множество заменяется его выпуклой оболочкой','Задача линеаризуется целиком'], a:0,
+  e:'Второе условие критично: отсечь заодно часть допустимого множества значит потерять оптимум. У Колбина этот же приём изложен как метод релаксации ограничений.'},
+ {t:'one', q:'Почему расстояние Хаусдорфа предпочитают объёму симметрической разности при оценке качества аппроксимации?',
+  o:['Оно проще вычисляется','Оно чувствительно к худшему отклонению, а объём его усредняет','Оно не зависит от размерности','Объём не определён для выпуклых множеств'], a:1,
+  e:'Тонкий длинный выступ даёт малый объём ошибки, но большое хаусдорфово расстояние. Какая метрика нужна — зависит от задачи, и в работе этот выбор надо обосновать.'},
+ {t:'one', q:'О чём лемма Фаркаша?',
+  o:['О существовании крайних точек','Об альтернативе: либо система линейных неравенств разрешима, либо разрешима двойственная ей система','О сходимости симплекс-метода','О единственности опорной гиперплоскости'], a:1,
+  e:'Из неё выводятся и теоремы двойственности в линейном программировании, и условия Куна — Таккера.'}
+]},
+
+{id:'ts1', from:11, topic:'ИМАД', name:'Временные ряды и прогнозирование', q:[
+ {t:'one', q:'Когда ряд стационарен в широком смысле?',
+  o:['Когда его значения ограничены','Когда среднее и ковариационная функция не меняются при сдвиге во времени','Когда у него нет сезонности','Когда его остатки нормальны'], a:1,
+  e:'Ковариация при этом может зависеть от расстояния между моментами, но не от того, где по оси времени мы находимся.'},
+ {t:'one', q:'Что означает буква I в ARIMA?',
+  o:['Порядок разностей, приводящих ряд к стационарному','Число инструментальных переменных','Порядок интегрирования по времени','Наличие сезонной компоненты'], a:0,
+  e:'Integrated: ряд не стационарен, но стационарен после d-кратного взятия разностей.'},
+ {t:'fill', q:'У процесса скользящего среднего MA(q) обрывается на лаге q функция — какая? (автокорреляционная или частная автокорреляционная)',
+  a:['автокорреляционная','автокорреляционная функция','acf','акф'],
+  e:'У MA(q) обрывается ACF, у AR(p) — PACF. На этом и строится подбор порядков по коррелограммам.'},
+ {t:'one', q:'Как в сезонной модели SARIMA учитывается сезонность?',
+  o:['Добавлением фиктивных переменных','Членами с лагами, кратными периоду сезонности','Логарифмированием ряда','Удалением сезонных наблюдений'], a:1,
+  e:'Для месячных данных это лаги 12, 24 и так далее, плюс сезонное дифференцирование.'},
+ {t:'many', q:'Какие признаки указывают на нестационарность ряда?',
+  o:['Выраженный тренд в среднем','Медленно убывающая автокорреляционная функция','Меняющаяся во времени дисперсия','Некоррелированность соседних значений'], a:[0,1,2],
+  e:'Последнее — свойство белого шума, который как раз стационарен.'},
+ {t:'one', q:'Что моделируют GARCH-модели?',
+  o:['Условное среднее ряда','Условную дисперсию, то есть меняющуюся волатильность','Сезонную компоненту','Тренд'], a:1,
+  e:'Для турпотока это полезно, если разброс вокруг прогноза сам меняется по сезонам, а не только уровень.'},
+ {t:'one', q:'Что такое ложная регрессия между двумя нестационарными рядами?',
+  o:['Регрессия с пропущенными переменными','Высокий коэффициент детерминации и значимые коэффициенты при отсутствии реальной связи','Регрессия на лагах самой переменной','Модель с автокоррелированными остатками'], a:1,
+  e:'Два независимых случайных блуждания дают R² под 0,9. Лечится проверкой на единичный корень и работой с разностями или коинтеграцией.'},
+ {t:'fill', q:'Какой критерий проверяет регрессионную однородность двух групп наблюдений, то есть наличие структурного сдвига?',
+  a:['чоу','критерий чоу','тест чоу','chow'],
+  e:'Критерий Чоу, у Айвазяна это пункт 2.11.3. Формальная замена рассуждению о сдвиге на глаз.'},
+ {t:'one', q:'Как ведёт себя прогноз по стационарной ARMA-модели при увеличении горизонта?',
+  o:['Сходится к среднему ряда, а доверительный интервал расширяется','Расходится','Остаётся постоянным вместе с интервалом','Повторяет последнее наблюдение'], a:0,
+  e:'Отсюда практический вывод: далёкий прогноз несёт мало информации сверх среднего, и планировать по нему точечно нельзя.'},
+ {t:'one', q:'Зачем в схеме Predict-then-Optimize смотрят на regret, а не только на ошибку прогноза?',
+  o:['Regret проще считать','Потому что важна не точность прогноза сама по себе, а потери от решения, принятого по этому прогнозу','Regret не зависит от данных','Это одно и то же'], a:1,
+  e:'Две модели с одинаковой среднеквадратичной ошибкой могут давать решения с сильно разными потерями: ошибка в одну сторону дороже, чем в другую.'}
+]},
+
+{id:'op2', from:9, topic:'Оптимизация', name:'Методы минимизации: безусловные и условные', q:[
+ {t:'one', q:'Чем метод золотого сечения выгоднее дихотомии?',
+  o:['Он сходится за конечное число шагов','После первой итерации требуется лишь одно новое вычисление функции','Он не требует унимодальности','Он использует производную'], a:1,
+  e:'Одна из двух пробных точек переходит в следующий отрезок. При дорогой целевой функции это вдвое сокращает работу.'},
+ {t:'one', q:'Что представляет собой направление антиградиента?',
+  o:['Направление наискорейшего локального убывания функции','Направление на глобальный минимум','Касательную к линии уровня','Нормаль к границе допустимого множества'], a:0,
+  e:'Слово «локального» здесь ключевое: за пределами малой окрестности это направление ничего не гарантирует.'},
+ {t:'one', q:'На чём основан метод Ньютона в задачах минимизации?',
+  o:['На вычислении только первых производных','На использовании гессиана и квадратичной модели функции','На случайном поиске','На переборе вершин'], a:1,
+  e:'Вблизи решения он даёт квадратичную скорость сходимости — заметно быстрее градиентного спуска.'},
+ {t:'one', q:'В чём главный недостаток метода Ньютона?',
+  o:['Он не сходится вовсе','Нужно считать и обращать гессиан, а сходимость только локальная','Он требует выпуклости множества','Он применим лишь к одномерным задачам'], a:1,
+  e:'Отсюда и квазиньютоновские методы: они строят приближение к обратному гессиану, не вычисляя его.'},
+ {t:'many', q:'Что верно про методы нулевого порядка?',
+  o:['Не требуют вычисления производных','Нелдер — Мид и Хук — Дживс относятся к ним','Применимы, когда функция задана алгоритмом или экспериментом','Сходятся быстрее градиентных'], a:[0,1,2],
+  e:'Скорость — как раз их слабое место. Берут их там, где производных просто нет.'},
+ {t:'fill', q:'Как называются условия оптимальности первого порядка для задачи с ограничениями-неравенствами?',
+  a:['куна-таккера','куна — таккера','условия куна-таккера','kkt','каруша-куна-таккера'],
+  e:'Условия Куна — Таккера, они же ККТ. Для выпуклой задачи при условии регулярности они и необходимы, и достаточны.'},
+ {t:'one', q:'В чём состоит метод множителей Лагранжа для ограничений-равенств?',
+  o:['Ограничения отбрасываются','Строится функция Лагранжа, её градиент по всем переменным приравнивается нулю','Задача решается перебором','Ограничения заменяются штрафом'], a:1,
+  e:'Число уравнений совпадает с числом неизвестных вместе с множителями, и система замыкается.'},
+ {t:'one', q:'Что делает метод штрафных функций?',
+  o:['Сводит условную задачу к последовательности безусловных','Линеаризует ограничения','Уменьшает размерность','Гарантирует глобальный минимум'], a:0,
+  e:'За нарушение ограничения к целевой функции добавляется растущий штраф. Беда в том, что при больших коэффициентах задача становится плохо обусловленной.'},
+ {t:'one', q:'Чем барьерная функция отличается от штрафной?',
+  o:['Ничем','Барьер не выпускает из допустимой области, поэтому стартовая точка обязана быть внутренней','Барьер применим только к равенствам','Барьер не требует итераций'], a:1,
+  e:'Отсюда и название методов внутренней точки: траектория всё время идёт внутри допустимого множества.'},
+ {t:'one', q:'Что перебирает симплекс-метод?',
+  o:['Все точки допустимого множества','Вершины допустимого многогранника','Случайные направления','Значения двойственных переменных'], a:1,
+  e:'Оптимум линейной задачи достигается в вершине, поэтому перебирать внутренность не нужно.'}
+]},
+
+{id:'op1', from:3, topic:'Оптимизация', name:'Выпуклый анализ и глобальная оптимизация', q:[
+ {t:'one', q:'Множество выпукло, если:',
+  o:['оно замкнуто','вместе с любыми двумя точками содержит соединяющий их отрезок','оно ограничено','оно связно'], a:1,
+  e:'Замкнутость, ограниченность и связность — независимые свойства. Выпуклое множество связно, но не наоборот.'},
+ {t:'fill', q:'Функция выпукла тогда и только тогда, когда её надграфик — ____ множество.', a:['выпуклое','выпукло'],
+  e:'Это определение переносит всю геометрию выпуклых множеств на функции.'},
+ {t:'one', q:'Что можно сказать про локальный минимум выпуклой функции на выпуклом множестве?',
+  o:['Он может не быть глобальным','Он всегда глобальный','Он единственный','Его не существует'], a:1,
+  e:'Именно поэтому выпуклые задачи решаются надёжно, а невыпуклые — нет. Единственность требует строгой выпуклости.'},
+ {t:'one', q:'Опорная функция множества X в направлении c — это:',
+  o:['inf ⟨c, x⟩ по x из X','sup ⟨c, x⟩ по x из X','норма c','расстояние от нуля до X'], a:1,
+  e:'Для замкнутого выпуклого множества опорная функция задаёт его однозначно — на этом и строится аппроксимация полупространствами.'},
+ {t:'one', q:'Что измеряет расстояние Хаусдорфа?',
+  o:['расстояние между точками','близость двух множеств','длину границы','объём множества'], a:1,
+  e:'Это естественная метрика качества, когда одно множество приближают другим.'},
+ {t:'many', q:'Почему глобальная оптимизация принципиально труднее локальной?',
+  o:['Локальные методы застревают в первом же минимуме','Число локальных минимумов обычно растёт с размерностью','Локальной информации в точке не хватает, чтобы судить о глобальном минимуме','Градиент в точке указывает на глобальный минимум'], a:[0,1,2],
+  e:'Последнее утверждение и есть источник всех бед: градиент — величина сугубо локальная.'},
+ {t:'one', q:'На чём основан метод ветвей и границ?',
+  o:['На случайном переборе','На отсечении подобластей по оценке снизу','На градиентном спуске','На линеаризации задачи'], a:1,
+  e:'Если оценка снизу по подобласти хуже уже найденного решения, подобласть целиком отбрасывается без перебора.'}
+]}
+];
+
+/* ══════════ состояние ══════════ */
+
+const KEY = 'semestr2026:state';
+
+/* Хранилище: внутри Claude — window.storage, в обычном браузере — localStorage,
+   если недоступно ничего — память на время сессии. */
+const STORE = (function(){
+  try{
+    if(typeof window!=='undefined' && window.storage && typeof window.storage.get==='function'){
+      return {kind:'claude',
+        get: async k => { const r = await window.storage.get(k); return r ? r.value : null; },
+        set: async (k,v) => { await window.storage.set(k,v); }};
+    }
+  }catch(e){}
+  try{
+    const probe='__probe__';
+    localStorage.setItem(probe,'1'); localStorage.removeItem(probe);
+    return {kind:'local',
+      get: async k => localStorage.getItem(k),
+      set: async (k,v) => { localStorage.setItem(k,v); }};
+  }catch(e){}
+  const mem={};
+  return {kind:'memory', get: async k => (k in mem ? mem[k] : null), set: async (k,v) => { mem[k]=v; }};
+})();
+let state = {checks:{}, tests:{}, mistakes:{}, notes:{}};
+let week = 1, tab = 'goals', openTest = null, answers = {}, graded = null, phase = null;
+
+async function load(){
+  try{
+    const raw = await STORE.get(KEY);
+    if(raw) state = JSON.parse(raw);
+  }catch(e){ /* первый запуск или повреждённые данные — начинаем с чистого листа */ }
+  if(!state.checks) state.checks = {};
+  if(!state.tests) state.tests = {};
+  if(!state.mistakes) state.mistakes = {};
+  if(!state.notes) state.notes = {};
+}
+let saveTimer = null;
+function save(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(async ()=>{
+    try{ await STORE.set(KEY, JSON.stringify(state)); }catch(e){}
+  }, 250);
+}
+
+/* текущая неделя по календарю */
+function currentWeek(){
+  const start = new Date(2026,8,14);
+  const d = Math.floor((new Date() - start)/(7*24*3600*1000)) + 1;
+  return Math.min(13, Math.max(1, d));
+}
+
+function weekTasks(w){
+  const out = [];
+  GOALS.forEach(g=>{
+    const list = (WEEKS[w-1].t[g.id]||[]);
+    if(list.length) out.push({g, list});
+  });
+  return out;
+}
+function isBehind(w){
+  const st = weekStats(w);
+  return w < currentWeek() && st.all > 0 && st.done < st.all;
+}
+function debtCount(){
+  const cur = currentWeek(); let n = 0;
+  for(let w=1; w<cur; w++){ const st = weekStats(w); n += st.all - st.done; }
+  return n;
+}
+function weekStats(w){
+  let done=0, all=0;
+  weekTasks(w).forEach(({g,list})=>list.forEach((_,i)=>{
+    all++; if(state.checks[`${w}:${g.id}:${i}`]) done++;
+  }));
+  return {done, all};
+}
+
+/* ══════════ отрисовка ══════════ */
+
+const $ = id => document.getElementById(id);
+
+function renderHeader(){
+  const w = WEEKS[week-1], s = weekStats(week);
+  $('wknum').textContent = week;
+  $('wkdates').textContent = w.dates;
+  $('wkcount').textContent = s.all ? `выполнено ${s.done} из ${s.all}` : 'на этой неделе задач нет';
+  const behind = debtCount();
+  $('wkdebt').textContent = behind ? `хвостов с прошлых недель: ${behind}` : '';
+  $('prev').disabled = week===1;
+  $('next').disabled = week===13;
+
+  const cur = currentWeek();
+  $('strip').innerHTML = WEEKS.map(x=>{
+    const st = weekStats(x.n);
+    const pct = st.all ? Math.round(st.done/st.all*100) : 0;
+    const cls = ['seg', x.n===week?'cur':'', x.n<cur?'past':'', isBehind(x.n)?'debt':''].filter(Boolean).join(' ');
+    return `<button class="${cls}" data-w="${x.n}" title="Неделя ${x.n}: ${x.dates}">
+      <span style="height:${pct}%"></span><em>${x.n}</em></button>`;
+  }).join('');
+  $('strip').querySelectorAll('.seg').forEach(b=>b.onclick=()=>{week=+b.dataset.w; openTest=null; render();});
+
+  let d=0,a=0;
+  WEEKS.forEach(x=>{const s2=weekStats(x.n); d+=s2.done; a+=s2.all;});
+  $('total').textContent = `семестр: ${d} из ${a} задач${a?` · ${Math.round(d/a*100)} %`:''}`;
+}
+
+function renderGoals(){
+  const blocks = weekTasks(week);
+  if(!blocks.length) return `<p class="empty">На этой неделе по плану ничего нет. Хороший повод разгрести хвосты предыдущей.</p>`;
+  const w = WEEKS[week-1];
+  let html = w.flag ? `<div class="flag"><b>${w.flag}</b></div>` : '';
+  html += blocks.map(({g,list})=>`
+    <section class="goal">
+      <h2><i>${g.num}</i>${g.title} <small>${g.note}</small></h2>
+      <ul class="tasks">${list.map((t,i)=>{
+        const k = `${week}:${g.id}:${i}`;
+        return `<li><label><input type="checkbox" data-k="${k}" ${state.checks[k]?'checked':''}><span>${t}</span></label></li>`;
+      }).join('')}</ul>
+    </section>`).join('');
+  html += `<div class="notes">
+    <label for="wknote">Заметки к неделе ${week}: что сказали на паре, что уточнить у научрука, чего не хватило</label>
+    <textarea id="wknote" placeholder="…">${(state.notes[week]||'').replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]))}</textarea></div>`;
+  return html;
+}
+
+function renderSchedule(){
+  const key = phase || (week<=7 ? 'a' : 'b');
+  const sch = SCHEDULES[key];
+  const auto = (week<=7 ? 'a' : 'b');
+  const today = (new Date().getDay()+6)%7;   // 0 — понедельник
+  const gmap = {}; GOALS.forEach(g=>gmap[g.id]=g);
+  const hours = {};
+  let total = 0;
+
+  const tabs = `<div class="phases">` + ['a','b'].map(k=>{
+    const on = k===key;
+    return `<button class="phase ${on?'on':''}" data-p="${k}">${SCHEDULES[k].title}${k===auto?' ·':''}</button>`;
+  }).join('') + `</div>`;
+
+  const days = sch.days.map((d,i)=>{
+    const blocks = d.b.map(b=>{
+      const num = b.g ? gmap[b.g].num : '·';
+      const name = b.g ? gmap[b.g].title : 'Ревью недели';
+      const val = parseFloat(b.h.replace(',','.'));
+      hours[name] = (hours[name]||0) + val; total += val;
+      return `<div class="block">
+        <span class="badge ${b.g?'':'none'}" title="${b.g?gmap[b.g].title:'без привязки к цели'}">${num}</span>
+        <span class="btext">${b.t}</span><span class="bh">${b.h}</span></div>`;
+    }).join('');
+    const dh = d.b.reduce((a,b)=>a+parseFloat(b.h.replace(',','.')),0);
+    const isToday = (key===auto) && i===today;
+    return `<div class="day ${isToday?'today':''}">
+      <div class="dname"><b>${d.d}</b><span>${d.tag} · ${String(dh).replace('.',',')} ч</span></div>
+      <div class="blocks">${blocks}</div></div>`;
+  }).join('');
+
+  const rows = Object.entries(hours).sort((a,b)=>b[1]-a[1])
+    .map(([k2,v])=>`<div class="hrow"><span>${k2}</span><b>${String(v).replace('.',',')} ч</b></div>`).join('');
+
+  return tabs + `<p class="loadnote">${sch.note}</p>` + days + `
+    <p class="loadnote">Пары идут в среду, четверг и пятницу — эти дни разгружены намеренно.
+    Основная работа приходится на вторник, субботу и воскресенье. Понедельник лёгкий: он нужен, чтобы
+    после тяжёлого воскресенья не начинать неделю с провала.</p>
+    <div class="hours">${rows}
+      <div class="hrow sum"><span>всего в неделю, помимо пар</span><b>${String(total).replace('.',',')} ч</b></div>
+    </div>`;
+}
+
+function norm(s){
+  return (s||'').toLowerCase().trim().replace(/ё/g,'е')
+    .replace(/[«»"'`.,;:!?()]/g,'').replace(/\s+/g,' ');
+}
+
+function mistakeSet(){
+  const out = [];
+  Object.keys(state.mistakes||{}).forEach(k=>{
+    const [tid, qi] = k.split('|');
+    const t = TESTS.find(x=>x.id===tid);
+    if(t && t.q[+qi]) out.push({tid, qi:+qi, q:t.q[+qi]});
+  });
+  return out;
+}
+function mistakeTest(){
+  const set = mistakeSet();
+  return {id:'__fix', name:'Работа над ошибками', topic:'по всем темам',
+          q:set.map(x=>x.q), _map:set.map(x=>({tid:x.tid, qi:x.qi}))};
+}
+
+function renderTestList(){
+  const fix = mistakeSet();
+  const word = fix.length%10===1 && fix.length%100!==11 ? 'вопрос' : 'вопросов';
+  const head = fix.length ? `<button class="titem fix" data-t="__fix">
+      <span><span class="tname">Работа над ошибками</span>
+      <span class="tsub">по всем темам · ${fix.length} ${word} · ответите верно — вопрос уйдёт из набора</span></span>
+      <span class="tscore">→</span></button>` : '';
+  return `<div class="tlist">${head}${TESTS.map(t=>{
+    const open = week >= t.from;
+    const r = state.tests[t.id];
+    const score = r ? `${r.best} / ${r.total}` : '—';
+    const ok = r && r.best/r.total >= 0.8;
+    return `<button class="titem" data-t="${t.id}" ${open?'':'disabled'}>
+      <span><span class="tname">${t.name}</span>
+      <span class="tsub">${t.topic} · ${t.q.length} вопросов · ${open?'доступен':'откроется на неделе '+t.from}</span></span>
+      <span class="tscore ${ok?'ok':''}">${score}</span></button>`;
+  }).join('')}</div>`;
+}
+
+function renderTest(t){
+  const qs = t.q.map((q,i)=>{
+    const g = graded ? graded[i] : null;
+    let body = '';
+    if(q.t==='fill'){
+      body = `<div class="fill"><input type="text" data-q="${i}" value="${(answers[i]||'').replace(/"/g,'&quot;')}"
+        placeholder="ответ" autocomplete="off" ${graded?'disabled':''}></div>`;
+    }else{
+      const many = q.t==='many';
+      const sel = answers[i];
+      body = (many?`<p class="hintmulti">можно отметить несколько</p>`:'') + `<div class="opts">` + q.o.map((o,j)=>{
+        const checked = many ? (Array.isArray(sel)&&sel.includes(j)) : sel===j;
+        let cls='opt';
+        if(graded){
+          const right = many ? q.a.includes(j) : q.a===j;
+          if(right) cls+=' right';
+          else if(checked) cls+=' wrong';
+        }
+        return `<label class="${cls}"><input type="${many?'checkbox':'radio'}" name="q${i}" data-q="${i}" data-o="${j}"
+          ${checked?'checked':''} ${graded?'disabled':''}><span>${o}</span></label>`;
+      }).join('') + `</div>`;
+    }
+    let verdict = '';
+    if(graded){
+      const right = q.t==='fill' ? q.a[0] : (q.t==='many' ? q.a.map(x=>q.o[x]).join(' · ') : q.o[q.a]);
+      verdict = `<div class="verdict ${g?'ok':'no'}">
+        <b>${g?'Верно.':'Неверно. Правильный ответ: '+right}</b>
+        <p>${q.e}</p></div>`;
+    }
+    return `<div class="q"><p class="qtext"><i>${i+1}</i><span>${q.q}</span></p>${body}${verdict}</div>`;
+  }).join('');
+
+  let foot;
+  if(graded){
+    const n = graded.filter(Boolean).length;
+    foot = `<div class="actions">
+      <span class="result">Результат: ${n} из ${t.q.length}</span>
+      <button class="ghost" id="again">Пройти заново</button>
+      <button class="ghost" id="tolist">К списку тестов</button></div>`;
+  }else{
+    foot = `<div class="actions">
+      <button class="primary" id="check">Проверить ответы</button>
+      <button class="ghost" id="tolist">Отмена</button></div>`;
+  }
+
+  return `<div class="paper">
+    <div class="qhead"><h2>${t.name}</h2><button class="back" id="back">← к списку</button></div>
+    <p class="qintro">${t.topic} · ${t.q.length} вопросов</p>
+    ${qs}${foot}</div>`;
+}
+
+function render(){
+  renderHeader();
+  $('tab-goals').setAttribute('aria-selected', tab==='goals');
+  $('tab-plan').setAttribute('aria-selected', tab==='plan');
+  $('tab-tests').setAttribute('aria-selected', tab==='tests');
+  $('tab-books').setAttribute('aria-selected', tab==='books');
+  const v = $('view');
+
+  if(tab==='books'){ v.innerHTML = renderBooks(); return; }
+
+  if(tab==='plan'){
+    v.innerHTML = renderSchedule();
+    v.querySelectorAll('.phase').forEach(b=>b.onclick=()=>{ phase = b.dataset.p; render(); });
+    return;
+  }
+
+  if(tab==='goals'){
+    v.innerHTML = renderGoals();
+    v.querySelectorAll('input[type=checkbox]').forEach(c=>{
+      c.onchange = ()=>{
+        if(c.checked) state.checks[c.dataset.k]=true; else delete state.checks[c.dataset.k];
+        save(); renderHeader();
+      };
+    });
+    const note = $('wknote');
+    if(note) note.oninput = ()=>{
+      const val = note.value;
+      if(val.trim()) state.notes[week] = val; else delete state.notes[week];
+      save();
+    };
+    return;
+  }
+
+  if(!openTest){ v.innerHTML = renderTestList();
+    v.querySelectorAll('.titem').forEach(b=>b.onclick=()=>{
+      openTest = b.dataset.t; answers={}; graded=null; render(); window.scrollTo({top:0,behavior:'smooth'});
+    });
+    return;
+  }
+
+  const t = openTest==='__fix' ? mistakeTest() : TESTS.find(x=>x.id===openTest);
+  if(!t || !t.q.length){ openTest=null; render(); return; }
+  v.innerHTML = renderTest(t);
+
+  v.querySelectorAll('.opt input').forEach(inp=>{
+    inp.onchange = ()=>{
+      const i=+inp.dataset.q, j=+inp.dataset.o;
+      if(t.q[i].t==='many'){
+        const cur = Array.isArray(answers[i])?answers[i]:[];
+        answers[i] = inp.checked ? [...cur, j] : cur.filter(x=>x!==j);
+      }else answers[i]=j;
+    };
+  });
+  v.querySelectorAll('.fill input').forEach(inp=>{
+    inp.oninput = ()=>{ answers[+inp.dataset.q]=inp.value; };
+  });
+
+  const back = ()=>{ openTest=null; graded=null; answers={}; render(); };
+  const b1=$('back'), b2=$('tolist'); if(b1) b1.onclick=back; if(b2) b2.onclick=back;
+  const ag=$('again'); if(ag) ag.onclick=()=>{ answers={}; graded=null; render(); window.scrollTo({top:0,behavior:'smooth'}); };
+
+  const ch=$('check');
+  if(ch) ch.onclick=()=>{
+    graded = t.q.map((q,i)=>{
+      const a = answers[i];
+      if(q.t==='fill') return q.a.some(x=>norm(x)===norm(a));
+      if(q.t==='many'){
+        const s=(Array.isArray(a)?a:[]).slice().sort().join(',');
+        return s===q.a.slice().sort().join(',');
+      }
+      return a===q.a;
+    });
+    const n = graded.filter(Boolean).length;
+    if(t.id==='__fix'){
+      t._map.forEach((m,i)=>{ if(graded[i]) delete state.mistakes[`${m.tid}|${m.qi}`]; });
+    }else{
+      graded.forEach((ok,i)=>{
+        const key = `${t.id}|${i}`;
+        if(ok) delete state.mistakes[key]; else state.mistakes[key] = true;
+      });
+      const prev = state.tests[t.id];
+      state.tests[t.id] = {best: Math.max(n, prev?prev.best:0), total: t.q.length, last: n};
+    }
+    save(); render(); window.scrollTo({top:0,behavior:'smooth'});
+  };
+}
+
+/* ══════════ запуск ══════════ */
+$('prev').onclick = ()=>{ if(week>1){week--; openTest=null; render();} };
+$('next').onclick = ()=>{ if(week<13){week++; openTest=null; render();} };
+$('tab-goals').onclick = ()=>{ tab='goals'; render(); };
+$('tab-plan').onclick  = ()=>{ tab='plan'; openTest=null; phase=null; render(); };
+$('tab-tests').onclick = ()=>{ tab='tests'; openTest=null; render(); };
+$('tab-books').onclick = ()=>{ tab='books'; openTest=null; render(); };
+if(STORE.kind==='memory'){
+  const w=$('warnmem'); w.hidden=false;
+  w.textContent='Браузер не даёт сохранять данные: галочки и результаты тестов пропадут при закрытии страницы. Чаще всего дело в режиме инкогнито или в открытии файла из мессенджера — попробуйте открыть его в обычной вкладке браузера.';
+}
+
+$('sync').onclick = ()=>{
+  const box=$('syncbox'); box.hidden=!box.hidden;
+  if(!box.hidden){
+    $('synctext').value = JSON.stringify(state);
+    $('syncnote').textContent = 'Ниже — весь ваш прогресс одной строкой.';
+    box.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+};
+$('syncclose').onclick = ()=>{ $('syncbox').hidden = true; };
+$('synccopy').onclick = async ()=>{
+  const ta=$('synctext'); ta.select(); ta.setSelectionRange(0, 999999);
+  try{ await navigator.clipboard.writeText(ta.value); $('syncnote').textContent='Скопировано.'; }
+  catch(e){ $('syncnote').textContent='Скопируйте выделенный текст вручную.'; }
+};
+$('syncapply').onclick = ()=>{
+  let parsed;
+  try{ parsed = JSON.parse($('synctext').value.trim()); }
+  catch(e){ $('syncnote').textContent='Не похоже на сохранённый прогресс: строка не читается.'; return; }
+  if(!parsed || typeof parsed!=='object' || !('checks' in parsed)){
+    $('syncnote').textContent='Не похоже на сохранённый прогресс: нет ожидаемых полей.'; return;
+  }
+  state = {checks:parsed.checks||{}, tests:parsed.tests||{}, mistakes:parsed.mistakes||{}, notes:parsed.notes||{}};
+  save(); openTest=null; graded=null; render();
+  $('syncnote').textContent='Прогресс загружен.';
+};
+
+$('reset').onclick = ()=>{
+  if(!confirm('Снять все галочки и удалить результаты тестов?')) return;
+  state={checks:{},tests:{},mistakes:{},notes:{}}; save(); openTest=null; graded=null; render();
+};
+
+(async ()=>{ await load(); week = currentWeek(); render(); })();
+</script>
+</body>
+</html>
